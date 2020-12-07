@@ -23,17 +23,18 @@ library(tidyverse)
 
 # Load data: ------------------------------------------------------------------
 ### CBEC Data
-cbec = read_delim('2012_public_use_data_aug2016.csv',delim = ",") %>%
+cbec = read_delim('./Data/2012_public_use_data_aug2016.csv',delim = ",") %>%
   select(id = PUBID, w = FINALWT, wall = WLCNS, 
          roof = RFCNS, size = SQFTC)
 
 ### Replicate weights
-weights =  read_delim('2012_public_use_data_aug2016.csv',  delim = ",") %>% 
+weights =  read_delim('./Data/2012_public_use_data_aug2016.csv',  
+                      delim = ",") %>% 
   select(id = PUBID, starts_with("FINALWT")) %>% 
   select(-FINALWT)
 
 ## Codebook
-codebook = readxl::read_excel('2012microdata_codebook.xlsx') %>% 
+codebook = readxl::read_excel('./Data/2012microdata_codebook.xlsx') %>% 
   select(c(2,6,7)) 
 
 variables = c(wall = 'WLCNS', roof = 'RFCNS', size = "SQFTC")
