@@ -1,0 +1,127 @@
+---
+title: 'STATS 506 F20, Final Project'
+author: "EunSeon Ahn, eunahn@umich.edu"
+date: "`r format.Date(Sys.Date(), '%B %d, %Y')`"
+output: 
+  html_document:
+    code_folding: hide
+    theme: simplex
+    highlight: pygments
+    includes:
+      in_header: header.html
+---
+
+```{css, include = TRUE, echo = FALSE}
+body{ /* Normal */
+  font-size: 13.5px;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<!-- Your report should be approximately two pages in length if printed and no more than 3 pages long. You should included at least 1 but no more than 3 tabular or graphical elements. The word count for the report should be between 200 and 600 words. -->
+
+## Introduction 
+<!-- Introduction: Approximately 2-3 paragraphs explaining what your question is, why it is interesting, and ending with a high level description of the analysis you did (not the results) -->
+
+Walking through University of Michigan's Ann Arbor campus (pre-COVID days), it's not difficult to observe the stark contrast between the architecture of Michigan's newer buildings like the Stephen M. Ross building (completed in 2009) lying across from the more traditional buildings that make up Michigan's famous Law Quad (completed in 1933). This sheer difference in style and basic structure of these two buildings demonstrates the underlying improvements and changes in labor, material, production, and new technology experienced by the the architecture and construction industry in the US over time. Whether these technological advancements have been driven by the need for efficiency, cost of labor/material, specific designs/purpose of buildings, durability, sustainability, or availability of different materials, this project seeks to investigate how the construction materials used for wall and roof of buildings across US have changed throughout the years. 
+
+Additionally, the requirements of the building materials may be further specified by the size of the building being constructed. It is possible that while there have been advancements in construction material or methods that make use of specific materials, making some building materials more popular at certain time periods, it perhaps only applies to buildings that are of smaller scale. Consequently, in order to take the size of the buildings into consideration in looking at the usage of construction material through time, we'll consider the square footage of the building to address whether buildings of different sizes require (or have a preferential leaning towards) different building materials. To address these questions, we will consider point estimates and generate confidence intervals for these estimates using replicate weights provided in our data.
+<br><br>
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 10px;}
+</style>
+<div class = "blue">
+>How has the frequency of the types of wall and roof construction material changed throughout the years? Does the use of certain construction materials differ by the size of the building, as measured by square footage?
+</div>
+
+## Data 
+
+```{r data prep, eval = FALSE}
+# libraries: ------------------------------------------------------------------
+library(tidyverse)
+
+# Script: ---------------------------------------------------------------------
+
+# Load data: ------------------------------------------------------------------
+### CBEC Data
+cbec = read_delim('2012_public_use_data_aug2016.csv',delim = ",") %>%
+  select(id = PUBID, w = FINALWT, wall = WLCNS, 
+         roof = RFCNS, size = SQFTC)
+
+### Replicate weights
+weights =  read_delim('2012_public_use_data_aug2016.csv',  delim = ",") %>% 
+  select(id = PUBID, starts_with("FINALWT")) %>% 
+  select(-FINALWT)
+
+## Codebook
+codebook = readxl::read_excel('2012microdata_codebook.xlsx') %>% 
+  select(c(2,6,7)) 
+
+variables = c(wall = 'WLCNS', roof = 'RFCNS', size = "SQFTC")
+
+codes = codebook %>% filter( `Variable\r\nname` %in% variables) %>%
+  transmute(
+    variable = `Variable\r\nname`,
+    levels =
+      str_split(`Values/Format codes`, pattern = '\r\n'))
+
+## apply labels
+decode_recs = function(x, varname, codes = codes){
+  # Source: Dr. Henderson's Youtube lecture from 'Intro to Tidyverse'
+  # apply factor labels to var using codebook "codes"
+  # INPUTS: 
+  #   x - input vector to be changed to a factor
+  #   varname - chr vector with name of the 'variable' in 'codes'
+  #   codes - codebook of factor, levels, and labels
+  # OUPTUT: x converted to a factor with levels givin in the codes 
+  
+  with(filter(codes, variable == varname ), 
+       factor(x, levels = as.numeric(levels[[1]]), labels = labels[[1]]))
+}
+
+cbec = cbec %>%
+  mutate(wall = decode_recs(wall,'WLCNS',codes),
+         roof = decode_recs(roof,'RFCNS',codes),
+         size = decode_recs(size,'SQFTC',codes),
+         id = as.double(id))
+
+head(cbec)
+```
+
+To address the above question, 2012 US Commercial Building Energy Consumption Survey ([CBECS](https://www.eia.gov/consumption/commercial/data/2012/index.php?view=microdata)) Data was analyzed.  
+<br>
+
+#### Variables used:   
+
+|  Variable  | Label | Values / Format Codes | 
+| ------------ | -------------------------|---------------------------------- |
+|`PUBID`| Building identifier | 00001 - 06720 |
+| `WLCONS` | Wall construction material | 1 = Brick, stone, or stucco<br>2 = Pre-cast concrete panels<br>3 = Concrete block or poured concrete (above grade)<br>4 = Aluminum, asbestos, plastic, or wood materials (siding, shingles, tiles, or shakes)<br>5 = Sheet metal panels<br>6 = Window or vision glass (glass that can be seen through)<br>7 = Decorative or construction glass<br>8 = No one major type<br>9 = Other|
+| `RFCNS`  | Roof construction material | 1 = Built-up (tar, felts, or fiberglass and a ballast, such as stone)<br>2 = Slate or tile shingles<br>3 = Wood shingles, shakes, or other wooden materials<br>4 = Asphalt, fiberglass, or other shingles<br>5 = Metal surfacing<br>6 = Plastic, rubber, or synthetic sheeting (single or multiple ply)<br>7 = Concrete<br>8 = No one major type<br>9 = Other|
+| `SQFTC`    | Square footage category | 01 = 1,000 square feet or less <br>02 = 1,001 to 5,000 square feet <br>03 = 5,001 to 10,000 square feet<br>04 = 10,001 to 25,000 square feet<br>05 = 25,001 to 50,000 square feet<br>06 = 50,001 to 100,000 square feet <br>07 = 100,001 to 200,000 square feet<br>08 = 200,001 to 500,000 square feet<br>09 = 500,001 to 1 million square feet<br>10 = Over 1 million square feet|
+|`FINALWT`| Final full sample building weight | Numeric|
+|`FINALWT..`| Final replicate weights | Numeric|
+
+## Methods
+
+<!-- Data / Methods: Describe your data source and the methods you used. There should be enough detail here that I could repeat your analysis. Focus on what you did, not how you did it. Include a sentence with a link to a GitHub repository containing your code. -->
+
+To investigate the relationship between the construction material (roof and wall) and the construction year to see if certain building materials were preferred in different years and whether certain materials are preferred for smaller vs larger buildings, descriptive statistics (mean percentage) will be calculated to estimate proportion of different wall and roof construction material by year built and square footage. The 95% confidence intervals will be calculated using the replicate weights by using Jackknife method to estimate standard error ([see for reference](https://www.eia.gov/consumption/commercial/data/2012/pdf/user_guide_public_use_aug2016.pdf)).
+
+The code containing this analysis is availble through this [github repository](https://github.com/EunseonAhn/FinalProject_506).
+
+## Results{.tabset .tabset-fade .tabset-pills}
+
+<!-- Results: What did you find? This should be the largest section and is where all of your tabular/graphical elements go. -->
+
+### Plots
+
+### Tables
+
+## Conclusion
+
+<!-- Conclusion / Discussion: What do your results allow us to conclude about the question you posed? What are the strengths and limitations of your analysis? -->
+
