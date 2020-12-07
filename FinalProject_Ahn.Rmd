@@ -119,7 +119,13 @@ The code containing this analysis is availble through this [github repository](h
 
 ### Plots
 
+* Material comparison by construction year and square footage
+    * Wall material
+    * Roof material
+
 ### Tables
+
+Will print point estimates and CIs here
 
 ## Conclusion
 
