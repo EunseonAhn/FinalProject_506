@@ -24,7 +24,7 @@ library(tidyverse)
 # Load data: ------------------------------------------------------------------
 ### CBEC Data
 cbec = read_delim('./Data/2012_public_use_data_aug2016.csv',delim = ",") %>%
-  select(id = PUBID, w = FINALWT, wall = WLCNS, 
+  select(id = PUBID, w = FINALWT, year = YRCONC, wall = WLCNS, 
          roof = RFCNS, size = SQFTC)
 
 ### Replicate weights
@@ -37,13 +37,21 @@ weights =  read_delim('./Data/2012_public_use_data_aug2016.csv',
 codebook = readxl::read_excel('./Data/2012microdata_codebook.xlsx') %>% 
   select(c(2,6,7)) 
 
-variables = c(wall = 'WLCNS', roof = 'RFCNS', size = "SQFTC")
+variables = c(year = 'YRCONC', Cwall = 'WLCNS', roof = 'RFCNS', size = "SQFTC")
 
 codes = codebook %>% filter( `Variable\r\nname` %in% variables) %>%
   transmute(
     variable = `Variable\r\nname`,
-    levels =
-      str_split(`Values/Format codes`, pattern = '\r\n'))
+    temp =
+      str_remove_all(`Values/Format codes`, pattern = "'")) %>%
+  mutate(
+    temp = str_split(temp, pattern = '\r\n')) %>%
+  mutate(
+    temp = lapply(temp, str_split_fixed, pattern = " = ", n = 2)) %>%
+  mutate(
+    levels = lapply(temp, function(m){m[,1]}),
+    labels = lapply(temp, function(m){m[,2]})) %>%
+  select(-temp)
 
 ## apply labels
 decode_recs = function(x, varname, codes = codes){
@@ -60,9 +68,22 @@ decode_recs = function(x, varname, codes = codes){
 }
 
 cbec = cbec %>%
-  mutate(wall = decode_recs(wall,'WLCNS',codes),
+  mutate(size = as.numeric(size),
+         year = as.numeric(year)) %>%
+  mutate(size = decode_recs(size,'SQFTC',codes),
+         wall = decode_recs(wall,'WLCNS',codes),
          roof = decode_recs(roof,'RFCNS',codes),
-         size = decode_recs(size,'SQFTC',codes),
+         year = decode_recs(year,'YRCONC', codes),
          id = as.double(id))
 
 head(cbec)
+
+## Construct point estimates 
+### Wall construction material
+wall_by_yr = cbec %>% group_by(year, size, wall) %>%
+  summarize(nbuildings = sum(w)) %>% mutate(p_wall = nbuildings/sum(nbuildings))
+
+### Roof construction material  
+roof_by_yr = cbec %>% group_by(year, size, roof) %>%
+  summarize(nbuildings = sum(w)) %>% mutate(p_wall = nbuildings/sum(nbuildings))
+

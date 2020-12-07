@@ -284,26 +284,35 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 10px;}
 
 <span class="co"># Load data: ------------------------------------------------------------------</span>
 ### CBEC Data
-cbec =<span class="st"> </span><span class="kw">read_delim</span>(<span class="st">'2012_public_use_data_aug2016.csv'</span>,<span class="dt">delim =</span> <span class="st">&quot;,&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(<span class="dt">id =</span> PUBID, <span class="dt">w =</span> FINALWT, <span class="dt">wall =</span> WLCNS, 
+cbec =<span class="st"> </span><span class="kw">read_delim</span>(<span class="st">'./Data/2012_public_use_data_aug2016.csv'</span>,<span class="dt">delim =</span> <span class="st">&quot;,&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="dt">id =</span> PUBID, <span class="dt">w =</span> FINALWT, <span class="dt">year =</span> YRCONC, <span class="dt">wall =</span> WLCNS, 
          <span class="dt">roof =</span> RFCNS, <span class="dt">size =</span> SQFTC)
 
 ### Replicate weights
-weights =<span class="st">  </span><span class="kw">read_delim</span>(<span class="st">'2012_public_use_data_aug2016.csv'</span>,  <span class="dt">delim =</span> <span class="st">&quot;,&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+weights =<span class="st">  </span><span class="kw">read_delim</span>(<span class="st">'./Data/2012_public_use_data_aug2016.csv'</span>,  
+                      <span class="dt">delim =</span> <span class="st">&quot;,&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(<span class="dt">id =</span> PUBID, <span class="kw">starts_with</span>(<span class="st">&quot;FINALWT&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>FINALWT)
 
 ## Codebook
-codebook =<span class="st"> </span>readxl<span class="op">::</span><span class="kw">read_excel</span>(<span class="st">'2012microdata_codebook.xlsx'</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+codebook =<span class="st"> </span>readxl<span class="op">::</span><span class="kw">read_excel</span>(<span class="st">'./Data/2012microdata_codebook.xlsx'</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">7</span>)) 
 
-variables =<span class="st"> </span><span class="kw">c</span>(<span class="dt">wall =</span> <span class="st">'WLCNS'</span>, <span class="dt">roof =</span> <span class="st">'RFCNS'</span>, <span class="dt">size =</span> <span class="st">&quot;SQFTC&quot;</span>)
+variables =<span class="st"> </span><span class="kw">c</span>(<span class="dt">year =</span> <span class="st">'YRCONC'</span>, <span class="dt">Cwall =</span> <span class="st">'WLCNS'</span>, <span class="dt">roof =</span> <span class="st">'RFCNS'</span>, <span class="dt">size =</span> <span class="st">&quot;SQFTC&quot;</span>)
 
 codes =<span class="st"> </span>codebook <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>( <span class="st">`</span><span class="dt">Variable</span><span class="ch">\r\n</span><span class="dt">name</span><span class="st">`</span> <span class="op">%in%</span><span class="st"> </span>variables) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">transmute</span>(
     <span class="dt">variable =</span> <span class="st">`</span><span class="dt">Variable</span><span class="ch">\r\n</span><span class="dt">name</span><span class="st">`</span>,
-    <span class="dt">levels =</span>
-      <span class="kw">str_split</span>(<span class="st">`</span><span class="dt">Values/Format codes</span><span class="st">`</span>, <span class="dt">pattern =</span> <span class="st">'</span><span class="ch">\r\n</span><span class="st">'</span>))
+    <span class="dt">temp =</span>
+      <span class="kw">str_remove_all</span>(<span class="st">`</span><span class="dt">Values/Format codes</span><span class="st">`</span>, <span class="dt">pattern =</span> <span class="st">&quot;'&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">temp =</span> <span class="kw">str_split</span>(temp, <span class="dt">pattern =</span> <span class="st">'</span><span class="ch">\r\n</span><span class="st">'</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">temp =</span> <span class="kw">lapply</span>(temp, str_split_fixed, <span class="dt">pattern =</span> <span class="st">&quot; = &quot;</span>, <span class="dt">n =</span> <span class="dv">2</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(
+    <span class="dt">levels =</span> <span class="kw">lapply</span>(temp, <span class="cf">function</span>(m){m[,<span class="dv">1</span>]}),
+    <span class="dt">labels =</span> <span class="kw">lapply</span>(temp, <span class="cf">function</span>(m){m[,<span class="dv">2</span>]})) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>temp)
 
 ## apply labels
 decode_recs =<span class="st"> </span><span class="cf">function</span>(x, varname, <span class="dt">codes =</span> codes){
@@ -320,12 +329,13 @@ decode_recs =<span class="st"> </span><span class="cf">function</span>(x, varnam
 }
 
 cbec =<span class="st"> </span>cbec <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">wall =</span> <span class="kw">decode_recs</span>(wall,<span class="st">'WLCNS'</span>,codes),
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">size =</span> <span class="kw">as.numeric</span>(size),
+         <span class="dt">year =</span> <span class="kw">as.numeric</span>(year)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">size =</span> <span class="kw">decode_recs</span>(size,<span class="st">'SQFTC'</span>,codes),
+         <span class="dt">wall =</span> <span class="kw">decode_recs</span>(wall,<span class="st">'WLCNS'</span>,codes),
          <span class="dt">roof =</span> <span class="kw">decode_recs</span>(roof,<span class="st">'RFCNS'</span>,codes),
-         <span class="dt">size =</span> <span class="kw">decode_recs</span>(size,<span class="st">'SQFTC'</span>,codes),
-         <span class="dt">id =</span> <span class="kw">as.double</span>(id))
-
-<span class="kw">head</span>(cbec)</code></pre></div>
+         <span class="dt">year =</span> <span class="kw">decode_recs</span>(year,<span class="st">'YRCONC'</span>, codes),
+         <span class="dt">id =</span> <span class="kw">as.double</span>(id))</code></pre></div>
 <p>To address the above question, 2012 US Commercial Building Energy Consumption Survey (<a href="https://www.eia.gov/consumption/commercial/data/2012/index.php?view=microdata">CBECS</a>) Data was analyzed.<br />
 <br></p>
 <div id="variables-used" class="section level4">
@@ -350,32 +360,48 @@ cbec =<span class="st"> </span>cbec <span class="op">%&gt;%</span>
 <td>00001 - 06720</td>
 </tr>
 <tr class="even">
+<td><code>YRCONC</code></td>
+<td>Year of construction category</td>
+<td>01 = Before 1920<br>02 = 1920 to 1945<br>03 = 1946 to 1959<br>04 = 1960 to 1969<br>05 = 1970 to 1979<br>06 = 1980 to 1989<br>07 = 1990 to 1999<br>08 = 2000 to 2003<br>09 = 2004 to 2007<br>10 = 2008 to 2012</td>
+</tr>
+<tr class="odd">
 <td><code>WLCONS</code></td>
 <td>Wall construction material</td>
 <td>1 = Brick, stone, or stucco<br>2 = Pre-cast concrete panels<br>3 = Concrete block or poured concrete (above grade)<br>4 = Aluminum, asbestos, plastic, or wood materials (siding, shingles, tiles, or shakes)<br>5 = Sheet metal panels<br>6 = Window or vision glass (glass that can be seen through)<br>7 = Decorative or construction glass<br>8 = No one major type<br>9 = Other</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>RFCNS</code></td>
 <td>Roof construction material</td>
 <td>1 = Built-up (tar, felts, or fiberglass and a ballast, such as stone)<br>2 = Slate or tile shingles<br>3 = Wood shingles, shakes, or other wooden materials<br>4 = Asphalt, fiberglass, or other shingles<br>5 = Metal surfacing<br>6 = Plastic, rubber, or synthetic sheeting (single or multiple ply)<br>7 = Concrete<br>8 = No one major type<br>9 = Other</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>SQFTC</code></td>
 <td>Square footage category</td>
 <td>01 = 1,000 square feet or less <br>02 = 1,001 to 5,000 square feet <br>03 = 5,001 to 10,000 square feet<br>04 = 10,001 to 25,000 square feet<br>05 = 25,001 to 50,000 square feet<br>06 = 50,001 to 100,000 square feet <br>07 = 100,001 to 200,000 square feet<br>08 = 200,001 to 500,000 square feet<br>09 = 500,001 to 1 million square feet<br>10 = Over 1 million square feet</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>FINALWT</code></td>
 <td>Final full sample building weight</td>
 <td>Numeric</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>FINALWT..</code></td>
 <td>Final replicate weights</td>
 <td>Numeric</td>
 </tr>
 </tbody>
 </table>
+<p>The data will be analyzed with data frame as shown below:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(cbec)</code></pre></div>
+<pre><code>## # A tibble: 6 x 6
+##      id      w year    wall                     roof                 size       
+##   &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;   &lt;fct&gt;                    &lt;fct&gt;                &lt;fct&gt;      
+## 1     1 1560.  1970 t… Aluminum, asbestos, pla… Slate or tile shing… 1,001 to 5…
+## 2     2  144.  1980 t… Concrete block or poure… Plastic, rubber, or… 100,001 to…
+## 3     3 1852.  1946 t… Aluminum, asbestos, pla… Asphalt, fiberglass… 1,001 to 5…
+## 4     4   17.2 1980 t… Window or vision glass … Built-up (tar, felt… 200,001 to…
+## 5     5  274.  1970 t… Concrete block or poure… Plastic, rubber, or… 25,001 to …
+## 6     6 1807.  Before… Brick, stone, or stucco  Built-up (tar, felt… 1,001 to 5…</code></pre>
 </div>
 </div>
 <div id="methods" class="section level2">

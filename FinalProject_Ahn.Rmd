@@ -39,7 +39,7 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 10px;}
 
 ## Data 
 
-```{r data prep, eval = FALSE}
+```{r data prep, message = FALSE, warning = FALSE}
 # libraries: ------------------------------------------------------------------
 library(tidyverse)
 
@@ -48,11 +48,11 @@ library(tidyverse)
 # Load data: ------------------------------------------------------------------
 ### CBEC Data
 cbec = read_delim('./Data/2012_public_use_data_aug2016.csv',delim = ",") %>%
-  select(id = PUBID, w = FINALWT, wall = WLCNS, 
+  select(id = PUBID, w = FINALWT, year = YRCONC, wall = WLCNS, 
          roof = RFCNS, size = SQFTC)
 
 ### Replicate weights
-weights =  read_delim('./Data/2012_public_use_data_aug2016.csv', 
+weights =  read_delim('./Data/2012_public_use_data_aug2016.csv',  
                       delim = ",") %>% 
   select(id = PUBID, starts_with("FINALWT")) %>% 
   select(-FINALWT)
@@ -61,13 +61,21 @@ weights =  read_delim('./Data/2012_public_use_data_aug2016.csv',
 codebook = readxl::read_excel('./Data/2012microdata_codebook.xlsx') %>% 
   select(c(2,6,7)) 
 
-variables = c(wall = 'WLCNS', roof = 'RFCNS', size = "SQFTC")
+variables = c(year = 'YRCONC', Cwall = 'WLCNS', roof = 'RFCNS', size = "SQFTC")
 
 codes = codebook %>% filter( `Variable\r\nname` %in% variables) %>%
   transmute(
     variable = `Variable\r\nname`,
-    levels =
-      str_split(`Values/Format codes`, pattern = '\r\n'))
+    temp =
+      str_remove_all(`Values/Format codes`, pattern = "'")) %>%
+  mutate(
+    temp = str_split(temp, pattern = '\r\n')) %>%
+  mutate(
+    temp = lapply(temp, str_split_fixed, pattern = " = ", n = 2)) %>%
+  mutate(
+    levels = lapply(temp, function(m){m[,1]}),
+    labels = lapply(temp, function(m){m[,2]})) %>%
+  select(-temp)
 
 ## apply labels
 decode_recs = function(x, varname, codes = codes){
@@ -84,12 +92,14 @@ decode_recs = function(x, varname, codes = codes){
 }
 
 cbec = cbec %>%
-  mutate(wall = decode_recs(wall,'WLCNS',codes),
+  mutate(size = as.numeric(size),
+         year = as.numeric(year)) %>%
+  mutate(size = decode_recs(size,'SQFTC',codes),
+         wall = decode_recs(wall,'WLCNS',codes),
          roof = decode_recs(roof,'RFCNS',codes),
-         size = decode_recs(size,'SQFTC',codes),
+         year = decode_recs(year,'YRCONC', codes),
          id = as.double(id))
 
-head(cbec)
 ```
 
 To address the above question, 2012 US Commercial Building Energy Consumption Survey ([CBECS](https://www.eia.gov/consumption/commercial/data/2012/index.php?view=microdata)) Data was analyzed.  
@@ -100,11 +110,17 @@ To address the above question, 2012 US Commercial Building Energy Consumption Su
 |  Variable  | Label | Values / Format Codes | 
 | ------------ | -------------------------|---------------------------------- |
 |`PUBID`| Building identifier | 00001 - 06720 |
+|`YRCONC`| Year of construction category | 01 = Before 1920<br>02 = 1920 to 1945<br>03 = 1946 to 1959<br>04 = 1960 to 1969<br>05 = 1970 to 1979<br>06 = 1980 to 1989<br>07 = 1990 to 1999<br>08 = 2000 to 2003<br>09 = 2004 to 2007<br>10 = 2008 to 2012|
 | `WLCONS` | Wall construction material | 1 = Brick, stone, or stucco<br>2 = Pre-cast concrete panels<br>3 = Concrete block or poured concrete (above grade)<br>4 = Aluminum, asbestos, plastic, or wood materials (siding, shingles, tiles, or shakes)<br>5 = Sheet metal panels<br>6 = Window or vision glass (glass that can be seen through)<br>7 = Decorative or construction glass<br>8 = No one major type<br>9 = Other|
 | `RFCNS`  | Roof construction material | 1 = Built-up (tar, felts, or fiberglass and a ballast, such as stone)<br>2 = Slate or tile shingles<br>3 = Wood shingles, shakes, or other wooden materials<br>4 = Asphalt, fiberglass, or other shingles<br>5 = Metal surfacing<br>6 = Plastic, rubber, or synthetic sheeting (single or multiple ply)<br>7 = Concrete<br>8 = No one major type<br>9 = Other|
 | `SQFTC`    | Square footage category | 01 = 1,000 square feet or less <br>02 = 1,001 to 5,000 square feet <br>03 = 5,001 to 10,000 square feet<br>04 = 10,001 to 25,000 square feet<br>05 = 25,001 to 50,000 square feet<br>06 = 50,001 to 100,000 square feet <br>07 = 100,001 to 200,000 square feet<br>08 = 200,001 to 500,000 square feet<br>09 = 500,001 to 1 million square feet<br>10 = Over 1 million square feet|
 |`FINALWT`| Final full sample building weight | Numeric|
 |`FINALWT..`| Final replicate weights | Numeric|
+
+The data will be analyzed with data frame as shown below:
+```{r}
+head(cbec)
+```
 
 ## Methods
 
