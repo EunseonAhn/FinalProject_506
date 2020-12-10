@@ -18,7 +18,7 @@ body{ /* Normal */
 ```
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
 
 <!-- Your report should be approximately two pages in length if printed and no more than 3 pages long. You should included at least 1 but no more than 3 tabular or graphical elements. The word count for the report should be between 200 and 600 words. -->
@@ -39,29 +39,42 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 10px;}
 
 ## Data 
 
-```{r data prep, message = FALSE, warning = FALSE}
+```{r data prep}
 # libraries: ------------------------------------------------------------------
 library(tidyverse)
 
 # Script: ---------------------------------------------------------------------
 
 # Load data: ------------------------------------------------------------------
-### CBEC Data
+## CBEC Data
 cbec = read_delim('./Data/2012_public_use_data_aug2016.csv',delim = ",") %>%
   select(id = PUBID, w = FINALWT, year = YRCONC, wall = WLCNS, 
          roof = RFCNS, size = SQFTC)
 
-### Replicate weights
+## Replicate weights
 weights =  read_delim('./Data/2012_public_use_data_aug2016.csv',  
                       delim = ",") %>% 
   select(id = PUBID, starts_with("FINALWT")) %>% 
   select(-FINALWT)
 
+### Convert replicate weights to long form 
+
+## Code taken from Dr. Henderson's lecture from 'Intro to Tidyverse' 
+long_weights = weights %>%
+  pivot_longer(
+    cols = starts_with('FINALWT'),
+    names_to = 'rep',
+    names_prefix = 'FINALWT',
+    values_to = 'rw'
+  ) %>%
+  mutate(rep = as.integer(rep),
+         id = as.integer(id))
+
 ## Codebook
 codebook = readxl::read_excel('./Data/2012microdata_codebook.xlsx') %>% 
   select(c(2,6,7)) 
 
-variables = c(year = 'YRCONC', Cwall = 'WLCNS', roof = 'RFCNS', size = "SQFTC")
+variables = c(year = 'YRCONC', wall = 'WLCNS', roof = 'RFCNS', size = "SQFTC")
 
 codes = codebook %>% filter( `Variable\r\nname` %in% variables) %>%
   transmute(
@@ -100,6 +113,24 @@ cbec = cbec %>%
          year = decode_recs(year,'YRCONC', codes),
          id = as.double(id))
 
+## Collapse across size categories for wider size categories
+cbec = cbec %>% 
+  mutate(size_group = 
+           fct_collapse(size,size1 = c("1,001 to 5,000 square feet" ,
+                                       "5,001 to 10,000 square feet",
+                                       "10,001 to 25,000 square feet"),
+                        size2 = c("25,001 to 50,000 square feet",
+                                  "50,001 to 100,000 square feet",
+                                  "100,001 to 200,000 square feet"),
+                        size3 = c("200,001 to 500,000 square feet",
+                                  "500,001 to 1 million square feet",
+                                  "Over 1 million square feet")))
+
+cbec = cbec %>% mutate(size_group = recode(size_group, 
+                size1 = "1001 to 25,000 sq. ft.",
+                size2 = "25,001 to 200,000 sq. ft.",
+                size3 = "200,001 to over 1 mil. sq. ft"))
+
 ```
 
 To address the above question, 2012 US Commercial Building Energy Consumption Survey ([CBECS](https://www.eia.gov/consumption/commercial/data/2012/index.php?view=microdata)) Data was analyzed.  
@@ -118,33 +149,143 @@ To address the above question, 2012 US Commercial Building Energy Consumption Su
 |`FINALWT..`| Final replicate weights | Numeric|
 
 The data will be analyzed with data frame as shown below:
-```{r}
-head(cbec)
+```{r class.source = 'fold-show'}
+knitr::kable(head(cbec))
 ```
 
 ## Methods
 
 <!-- Data / Methods: Describe your data source and the methods you used. There should be enough detail here that I could repeat your analysis. Focus on what you did, not how you did it. Include a sentence with a link to a GitHub repository containing your code. -->
 
+```{r analysis, class.source = 'fold-hide'}
+gen_CI = function(df, varA, varB){
+  # Construct point estimates and confidence intervals
+  
+  # generate pt. estimates confidence intervals for var A grouped by var B
+  #     by variable B
+  # INPUTS: 
+  #   df - the tibble or data frame with all available values
+  #   varA - variable of interest
+  #   varB - variable you want to group varA by
+  
+  # OUPTUT: pt_CI - data frame containing variance, standard error, and lower and 
+  #         upper bounds of the 95% confidence interval
+  
+  pt_est = df %>% group_by_at(c(varA, varB)) %>%
+    summarize(nTotal = sum(w)) %>%
+    mutate(p = nTotal/sum(nTotal))
+  
+  pt_repl = df %>% select(-w) %>%
+    left_join(long_weights, by = "id") %>%
+    group_by_at(c(varA, "rep", varB)) %>%
+    summarize(nTotal_repl = sum(rw)) %>% 
+    mutate(p_repl = nTotal_repl/sum(nTotal_repl)) %>% ungroup()
+    
+  # Calc. confidence intervals
+  pt_var = pt_repl %>%
+    select(-nTotal_repl) %>%
+    left_join(pt_est, by = c(varA, varB)) %>%
+    select(-nTotal) %>%
+    group_by_at(c(varA, varB)) %>%
+    summarize(p = mean(p), v =  sum({(p_repl - p)^2}))
+  
+  m = qnorm(.975)
+  pt_CI = pt_var %>% 
+    mutate(
+      se = sqrt(v), 
+      lwr = pmax(p - m * se, 0),
+      upr = pmin(p + m * se, 1)) 
+
+  return(pt_CI)
+}
+
+wall_year = gen_CI(cbec, "year", "wall") %>%
+  mutate(across(all_of(c('p', 'lwr', 'upr')), 
+                 .fns = function(x) 100 * x))
+wall_year_size = gen_CI(cbec, c("year", "size_group"), "wall") %>%
+  mutate(across(all_of(c('p', 'lwr', 'upr')), 
+                .fns = function(x) 100 * x))
+
+roof_year = gen_CI(cbec, "year", "roof") %>%
+  mutate(across(all_of(c('p', 'lwr', 'upr')), 
+                .fns = function(x) 100 * x))
+roof_year_size = gen_CI(cbec, c("year", "size_group"), "roof") %>%
+  mutate(across(all_of(c('p', 'lwr', 'upr')), 
+                .fns = function(x) 100 * x))
+
+```
+
 To investigate the relationship between the construction material (roof and wall) and the construction year to see if certain building materials were preferred in different years and whether certain materials are preferred for smaller vs larger buildings, descriptive statistics (mean percentage) will be calculated to estimate proportion of different wall and roof construction material by year built and square footage. The 95% confidence intervals will be calculated using the replicate weights by using Jackknife method to estimate standard error ([see for reference](https://www.eia.gov/consumption/commercial/data/2012/pdf/user_guide_public_use_aug2016.pdf)).
 
-The code containing this analysis is availble through this [github repository](https://github.com/EunseonAhn/FinalProject_506).
+The code containing this analysis is available through this [github repository](https://github.com/EunseonAhn/FinalProject_506).
 
-## Results{.tabset .tabset-fade .tabset-pills}
+## Results {.tabset .tabset-fade .tabset-pills}
 
 <!-- Results: What did you find? This should be the largest section and is where all of your tabular/graphical elements go. -->
 
-### Plots
+### Wall {.tabset .tabset-fade .tabset-pills}
 
-* Material comparison by construction year and square footage
-    * Wall material
-    * Roof material
+#### Plot {.active .tabset .tabset-fade .tabset-pills}
 
-### Tables
+```{r wall, fig.cap = cap1a, fig.height = 10, fig.width = 10}
 
-Will print point estimates and CIs here
+cap1a = paste(
+ "**Figure 1a.** *Percentage of Buildings with Wall Material By Year & Building Size*"
+)
+
+## construct a plot
+wall_year_size %>%
+  mutate(`Size Group` = size_group) %>%
+  ggplot( aes(x = year, y = p, color = `Size Group`) ) +
+  geom_point( position = position_dodge(.5) ) +
+  geom_point( position = position_dodge(.5) ) +
+  geom_errorbar( 
+    aes(ymin = lwr, ymax = upr),
+    position = position_dodge(.5), width = 0.2
+  ) + 
+  facet_wrap(~ wall) + 
+  coord_flip() +
+  theme_bw() +
+  ylab('% Using Wall Material') + 
+  xlab('Construction Year') +
+  ylim(c(0, 90))  
+```
+
+#### Table
+
+table
+
+### Roof  {.tabset .tabset-fade .tabset-pills}
+
+#### Plot {.tabset .tabset-fade .tabset-pills}
+
+```{r roof, fig.cap = cap1b, fig.height = 10, fig.width = 10}
+cap1b = paste(
+ "**Figure 2a.** *Percentage of Buildings with Roof Material By Year & Building Size*"
+)
+
+## Plot for roof construction material by year/square footage
+roof_year_size %>%
+  mutate(`Size Group` = size_group) %>%
+  ggplot( aes(x = year, y = p, color = `Size Group`)) +
+  geom_point( position = position_dodge(.5) ) +
+  geom_point( position = position_dodge(.5) ) +
+  geom_errorbar( 
+    aes(ymin = lwr, ymax = upr),
+    position = position_dodge(.5), width = 0.2
+  ) + 
+  facet_wrap(~ roof) + 
+  coord_flip() +
+  theme_bw() +
+  ylab('% Using Roof Material') + 
+  xlab('Construction Year') +
+  ylim(c(0, 90))  
+```
+
+#### Table
+
+table
 
 ## Conclusion
 
 <!-- Conclusion / Discussion: What do your results allow us to conclude about the question you posed? What are the strengths and limitations of your analysis? -->
-
