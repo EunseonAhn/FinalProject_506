@@ -148,11 +148,6 @@ To address the above question, 2012 US Commercial Building Energy Consumption Su
 |`FINALWT`| Final full sample building weight | Numeric|
 |`FINALWT..`| Final replicate weights | Numeric|
 
-The data will be analyzed with data frame as shown below:
-```{r class.source = 'fold-show'}
-knitr::kable(head(cbec))
-```
-
 ## Methods
 
 <!-- Data / Methods: Describe your data source and the methods you used. There should be enough detail here that I could repeat your analysis. Focus on what you did, not how you did it. Include a sentence with a link to a GitHub repository containing your code. -->
@@ -215,8 +210,17 @@ roof_year_size = gen_CI(cbec, c("year", "size_group"), "roof") %>%
 
 ```
 
-To investigate the relationship between the construction material (roof and wall) and the construction year to see if certain building materials were preferred in different years and whether certain materials are preferred for smaller vs larger buildings, descriptive statistics (mean percentage) will be calculated to estimate proportion of different wall and roof construction material by year built and square footage. The 95% confidence intervals will be calculated using the replicate weights by using Jackknife method to estimate standard error ([see for reference](https://www.eia.gov/consumption/commercial/data/2012/pdf/user_guide_public_use_aug2016.pdf)).
+To investigate the relationship between the construction materials (roof and wall) and the construction year (to see if certain building materials were preferred in different years) and whether certain materials are preferred for smaller vs larger buildings, descriptive statistics, specifically the mean percentage, was calculated to estimate the proportion of different wall and roof construction material by construction year and square footage. The square footage categories provided by the dataset was further collapsed into 3 size categories for better chance of meaning distinction betweeen groups:
 
+[]()  | 
+------|------
+Size Category 1 | 1001 to 25,000 square feet
+Size Category 2 | 25,001 to 200,000 square feet
+Size Category 3 | 200,001 to over 1 million square feet
+
+The 95% confidence intervals was calculated using the replicate weights through Jackknife method of estimating the standard error ([see for reference](https://www.eia.gov/consumption/commercial/data/2012/pdf/user_guide_public_use_aug2016.pdf)). The variance of a population parameter is estimated by: 
+$$\hat V( \hat \theta) = \sum\limits_{r=1}^R \alpha_r (\hat \theta_r - \hat \theta) ^2 $$
+where the coefficient for replicate r,  $\alpha_r$,  = 1 for the current dataset and the number of replicate samples. 
 The code containing this analysis is available through this [github repository](https://github.com/EunseonAhn/FinalProject_506).
 
 ## Results {.tabset .tabset-fade .tabset-pills}
@@ -284,7 +288,112 @@ roof_year_size %>%
 
 #### Table
 
-table
+```{r table, fig.cap = cap_tab1}
+cap_tab1 = paste(
+ "**Table 1.** *Wall construction material used by buildings (%) in 2012. *",
+ "Numbers in parantheses represent 95% confidence intervals."
+)
+
+t = wall_year_size %>%
+   mutate(
+    pretty = sprintf('<div>%4.1f</div> <div>(%4.1f, %4.1f)</div>', 
+                     p, lwr, upr)
+  ) 
+
+pivot_all = function (t){
+  t1 = list()
+  for(i in 1: length(levels(t$year))) { 
+
+    t1[[i]] = t %>%
+      filter(as.numeric(year) == i) %>%
+      pivot_wider(
+        id_cols = c('wall', 'size_group'),
+        names_from = 'year',
+        names_prefix = '',
+        values_from = 'pretty',
+        values_fill = '--'
+      )
+  }
+  return (t1)
+}
+
+t1 = pivot_all(t)
+joined = t1 %>%
+  reduce(left_join, by = c("wall", "size_group"))
+
+joined %>%
+  rename(` ` = wall) %>%
+  ungroup() %>%
+  select(-size_group) %>%
+  knitr::kable(
+    format = 'html', 
+    escape = FALSE, 
+    align = 'llcccccc',
+    cap = cap_tab1
+  ) %>%
+  kableExtra::kable_styling("striped", full_width = TRUE) %>%
+  kableExtra::pack_rows("Size: 1001 to 25,000 sqft", 1, 7) %>%
+  kableExtra::pack_rows("Size: 25,001 to 200,000 sqft", 8, 11) %>%
+  kableExtra::pack_rows("Size: 200,001 to over 1 mil. sqft", 12, 15) %>%
+  kableExtra::add_header_above(header = c('Wall Material' = 1, 'Construction Year' = 10)) 
+
+```
+
+```{r remove, include = FALSE}
+t1_s1 = t %>%
+  filter(as.numeric(size_group) == 2) %>%
+  pivot_wider(
+    id_cols = c('year', 'wall'),
+    names_from = 'size_group',
+    names_prefix = '',
+    values_from = 'pretty',
+    values_fill = '--'
+  )
+
+t1_s2 = t %>%
+  filter(as.numeric(size_group) == 3) %>%
+  pivot_wider(
+    id_cols = c('year', 'wall'),
+    names_from = 'size_group',
+    names_prefix = '',
+    values_from = 'pretty',
+    values_fill = '--'
+  )
+
+t1_s3 = t %>%
+  filter(as.numeric(size_group) == 4) %>%
+  pivot_wider(
+    id_cols = c('year', 'wall'),
+    names_from = 'size_group',
+    names_prefix = '',
+    values_from = 'pretty',
+    values_fill = '--'
+  )
+
+t1 = t1_s1 %>% 
+  left_join(t1_s2, by = c('year', 'wall')) %>%
+  left_join(t1_s3, by = c('year', 'wall'))
+
+
+t1 %>%
+  arrange(year, wall) %>% ungroup() %>% select(-year) %>%
+  select(
+    `Wall Material `= wall,
+    `1001 to 25,000 sq. ft.`,
+    `25,001 to 200,000 sq. ft.`,
+    `200,001 to over 1 mil. sq. ft`) %>%
+  knitr::kable(
+    format = 'html', 
+    escape = FALSE, 
+    align = 'llcccccc'
+  ) %>%
+  kableExtra::kable_styling("striped", full_width = TRUE) %>%
+  kableExtra::pack_rows("Group 1", 1, 7) %>%
+  kableExtra::pack_rows("Group 2", 8, 14) %>%
+  kableExtra::pack_rows("Group 3", 15, 21) %>%
+  kableExtra::pack_rows("Group 4", 22, 28) %>%
+  kableExtra::add_header_above(header = c(' ' = 1, 'Building size' = 3)) 
+```
 
 ## Conclusion
 

@@ -11,7 +11,7 @@
 
 <meta name="author" content="EunSeon Ahn, eunahn@umich.edu" />
 
-<meta name="date" content="2020-12-10" />
+<meta name="date" content="2020-12-13" />
 
 <title>STATS 506 F20, Final Project</title>
 
@@ -23,6 +23,8 @@
 <script src="data:application/x-javascript;base64,LyohIFJlc3BvbmQuanMgdjEuNC4yOiBtaW4vbWF4LXdpZHRoIG1lZGlhIHF1ZXJ5IHBvbHlmaWxsICogQ29weXJpZ2h0IDIwMTMgU2NvdHQgSmVobAogKiBMaWNlbnNlZCB1bmRlciBodHRwczovL2dpdGh1Yi5jb20vc2NvdHRqZWhsL1Jlc3BvbmQvYmxvYi9tYXN0ZXIvTElDRU5TRS1NSVQKICogICovCgovLyBPbmx5IHJ1biB0aGlzIGNvZGUgaW4gSUUgOAppZiAoISF3aW5kb3cubmF2aWdhdG9yLnVzZXJBZ2VudC5tYXRjaCgiTVNJRSA4IikpIHsKIWZ1bmN0aW9uKGEpeyJ1c2Ugc3RyaWN0IjthLm1hdGNoTWVkaWE9YS5tYXRjaE1lZGlhfHxmdW5jdGlvbihhKXt2YXIgYixjPWEuZG9jdW1lbnRFbGVtZW50LGQ9Yy5maXJzdEVsZW1lbnRDaGlsZHx8Yy5maXJzdENoaWxkLGU9YS5jcmVhdGVFbGVtZW50KCJib2R5IiksZj1hLmNyZWF0ZUVsZW1lbnQoImRpdiIpO3JldHVybiBmLmlkPSJtcS10ZXN0LTEiLGYuc3R5bGUuY3NzVGV4dD0icG9zaXRpb246YWJzb2x1dGU7dG9wOi0xMDBlbSIsZS5zdHlsZS5iYWNrZ3JvdW5kPSJub25lIixlLmFwcGVuZENoaWxkKGYpLGZ1bmN0aW9uKGEpe3JldHVybiBmLmlubmVySFRNTD0nJnNoeTs8c3R5bGUgbWVkaWE9IicrYSsnIj4gI21xLXRlc3QtMSB7IHdpZHRoOiA0MnB4OyB9PC9zdHlsZT4nLGMuaW5zZXJ0QmVmb3JlKGUsZCksYj00Mj09PWYub2Zmc2V0V2lkdGgsYy5yZW1vdmVDaGlsZChlKSx7bWF0Y2hlczpiLG1lZGlhOmF9fX0oYS5kb2N1bWVudCl9KHRoaXMpLGZ1bmN0aW9uKGEpeyJ1c2Ugc3RyaWN0IjtmdW5jdGlvbiBiKCl7dSghMCl9dmFyIGM9e307YS5yZXNwb25kPWMsYy51cGRhdGU9ZnVuY3Rpb24oKXt9O3ZhciBkPVtdLGU9ZnVuY3Rpb24oKXt2YXIgYj0hMTt0cnl7Yj1uZXcgYS5YTUxIdHRwUmVxdWVzdH1jYXRjaChjKXtiPW5ldyBhLkFjdGl2ZVhPYmplY3QoIk1pY3Jvc29mdC5YTUxIVFRQIil9cmV0dXJuIGZ1bmN0aW9uKCl7cmV0dXJuIGJ9fSgpLGY9ZnVuY3Rpb24oYSxiKXt2YXIgYz1lKCk7YyYmKGMub3BlbigiR0VUIixhLCEwKSxjLm9ucmVhZHlzdGF0ZWNoYW5nZT1mdW5jdGlvbigpezQhPT1jLnJlYWR5U3RhdGV8fDIwMCE9PWMuc3RhdHVzJiYzMDQhPT1jLnN0YXR1c3x8YihjLnJlc3BvbnNlVGV4dCl9LDQhPT1jLnJlYWR5U3RhdGUmJmMuc2VuZChudWxsKSl9O2lmKGMuYWpheD1mLGMucXVldWU9ZCxjLnJlZ2V4PXttZWRpYTovQG1lZGlhW15ce10rXHsoW15ce1x9XSpce1teXH1ce10qXH0pKy9naSxrZXlmcmFtZXM6L0AoPzpcLSg/Om98bW96fHdlYmtpdClcLSk/a2V5ZnJhbWVzW15ce10rXHsoPzpbXlx7XH1dKlx7W15cfVx7XSpcfSkrW15cfV0qXH0vZ2ksdXJsczovKHVybFwoKVsnIl0/KFteXC9cKSciXVteOlwpJyJdKylbJyJdPyhcKSkvZyxmaW5kU3R5bGVzOi9AbWVkaWEgKihbXlx7XSspXHsoW1xTXHNdKz8pJC8sb25seTovKG9ubHlccyspPyhbYS16QS1aXSspXHM/LyxtaW53Oi9cKFtcc10qbWluXC13aWR0aFxzKjpbXHNdKihbXHNdKlswLTlcLl0rKShweHxlbSlbXHNdKlwpLyxtYXh3Oi9cKFtcc10qbWF4XC13aWR0aFxzKjpbXHNdKihbXHNdKlswLTlcLl0rKShweHxlbSlbXHNdKlwpL30sYy5tZWRpYVF1ZXJpZXNTdXBwb3J0ZWQ9YS5tYXRjaE1lZGlhJiZudWxsIT09YS5tYXRjaE1lZGlhKCJvbmx5IGFsbCIpJiZhLm1hdGNoTWVkaWEoIm9ubHkgYWxsIikubWF0Y2hlcywhYy5tZWRpYVF1ZXJpZXNTdXBwb3J0ZWQpe3ZhciBnLGgsaSxqPWEuZG9jdW1lbnQsaz1qLmRvY3VtZW50RWxlbWVudCxsPVtdLG09W10sbj1bXSxvPXt9LHA9MzAscT1qLmdldEVsZW1lbnRzQnlUYWdOYW1lKCJoZWFkIilbMF18fGsscj1qLmdldEVsZW1lbnRzQnlUYWdOYW1lKCJiYXNlIilbMF0scz1xLmdldEVsZW1lbnRzQnlUYWdOYW1lKCJsaW5rIiksdD1mdW5jdGlvbigpe3ZhciBhLGI9ai5jcmVhdGVFbGVtZW50KCJkaXYiKSxjPWouYm9keSxkPWsuc3R5bGUuZm9udFNpemUsZT1jJiZjLnN0eWxlLmZvbnRTaXplLGY9ITE7cmV0dXJuIGIuc3R5bGUuY3NzVGV4dD0icG9zaXRpb246YWJzb2x1dGU7Zm9udC1zaXplOjFlbTt3aWR0aDoxZW0iLGN8fChjPWY9ai5jcmVhdGVFbGVtZW50KCJib2R5IiksYy5zdHlsZS5iYWNrZ3JvdW5kPSJub25lIiksay5zdHlsZS5mb250U2l6ZT0iMTAwJSIsYy5zdHlsZS5mb250U2l6ZT0iMTAwJSIsYy5hcHBlbmRDaGlsZChiKSxmJiZrLmluc2VydEJlZm9yZShjLGsuZmlyc3RDaGlsZCksYT1iLm9mZnNldFdpZHRoLGY/ay5yZW1vdmVDaGlsZChjKTpjLnJlbW92ZUNoaWxkKGIpLGsuc3R5bGUuZm9udFNpemU9ZCxlJiYoYy5zdHlsZS5mb250U2l6ZT1lKSxhPWk9cGFyc2VGbG9hdChhKX0sdT1mdW5jdGlvbihiKXt2YXIgYz0iY2xpZW50V2lkdGgiLGQ9a1tjXSxlPSJDU1MxQ29tcGF0Ij09PWouY29tcGF0TW9kZSYmZHx8ai5ib2R5W2NdfHxkLGY9e30sbz1zW3MubGVuZ3RoLTFdLHI9KG5ldyBEYXRlKS5nZXRUaW1lKCk7aWYoYiYmZyYmcD5yLWcpcmV0dXJuIGEuY2xlYXJUaW1lb3V0KGgpLGg9YS5zZXRUaW1lb3V0KHUscCksdm9pZCAwO2c9cjtmb3IodmFyIHYgaW4gbClpZihsLmhhc093blByb3BlcnR5KHYpKXt2YXIgdz1sW3ZdLHg9dy5taW53LHk9dy5tYXh3LHo9bnVsbD09PXgsQT1udWxsPT09eSxCPSJlbSI7eCYmKHg9cGFyc2VGbG9hdCh4KSooeC5pbmRleE9mKEIpPi0xP2l8fHQoKToxKSkseSYmKHk9cGFyc2VGbG9hdCh5KSooeS5pbmRleE9mKEIpPi0xP2l8fHQoKToxKSksdy5oYXNxdWVyeSYmKHomJkF8fCEoenx8ZT49eCl8fCEoQXx8eT49ZSkpfHwoZlt3Lm1lZGlhXXx8KGZbdy5tZWRpYV09W10pLGZbdy5tZWRpYV0ucHVzaChtW3cucnVsZXNdKSl9Zm9yKHZhciBDIGluIG4pbi5oYXNPd25Qcm9wZXJ0eShDKSYmbltDXSYmbltDXS5wYXJlbnROb2RlPT09cSYmcS5yZW1vdmVDaGlsZChuW0NdKTtuLmxlbmd0aD0wO2Zvcih2YXIgRCBpbiBmKWlmKGYuaGFzT3duUHJvcGVydHkoRCkpe3ZhciBFPWouY3JlYXRlRWxlbWVudCgic3R5bGUiKSxGPWZbRF0uam9pbigiXG4iKTtFLnR5cGU9InRleHQvY3NzIixFLm1lZGlhPUQscS5pbnNlcnRCZWZvcmUoRSxvLm5leHRTaWJsaW5nKSxFLnN0eWxlU2hlZXQ/RS5zdHlsZVNoZWV0LmNzc1RleHQ9RjpFLmFwcGVuZENoaWxkKGouY3JlYXRlVGV4dE5vZGUoRikpLG4ucHVzaChFKX19LHY9ZnVuY3Rpb24oYSxiLGQpe3ZhciBlPWEucmVwbGFjZShjLnJlZ2V4LmtleWZyYW1lcywiIikubWF0Y2goYy5yZWdleC5tZWRpYSksZj1lJiZlLmxlbmd0aHx8MDtiPWIuc3Vic3RyaW5nKDAsYi5sYXN0SW5kZXhPZigiLyIpKTt2YXIgZz1mdW5jdGlvbihhKXtyZXR1cm4gYS5yZXBsYWNlKGMucmVnZXgudXJscywiJDEiK2IrIiQyJDMiKX0saD0hZiYmZDtiLmxlbmd0aCYmKGIrPSIvIiksaCYmKGY9MSk7Zm9yKHZhciBpPTA7Zj5pO2krKyl7dmFyIGosayxuLG87aD8oaj1kLG0ucHVzaChnKGEpKSk6KGo9ZVtpXS5tYXRjaChjLnJlZ2V4LmZpbmRTdHlsZXMpJiZSZWdFeHAuJDEsbS5wdXNoKFJlZ0V4cC4kMiYmZyhSZWdFeHAuJDIpKSksbj1qLnNwbGl0KCIsIiksbz1uLmxlbmd0aDtmb3IodmFyIHA9MDtvPnA7cCsrKWs9bltwXSxsLnB1c2goe21lZGlhOmsuc3BsaXQoIigiKVswXS5tYXRjaChjLnJlZ2V4Lm9ubHkpJiZSZWdFeHAuJDJ8fCJhbGwiLHJ1bGVzOm0ubGVuZ3RoLTEsaGFzcXVlcnk6ay5pbmRleE9mKCIoIik+LTEsbWludzprLm1hdGNoKGMucmVnZXgubWludykmJnBhcnNlRmxvYXQoUmVnRXhwLiQxKSsoUmVnRXhwLiQyfHwiIiksbWF4dzprLm1hdGNoKGMucmVnZXgubWF4dykmJnBhcnNlRmxvYXQoUmVnRXhwLiQxKSsoUmVnRXhwLiQyfHwiIil9KX11KCl9LHc9ZnVuY3Rpb24oKXtpZihkLmxlbmd0aCl7dmFyIGI9ZC5zaGlmdCgpO2YoYi5ocmVmLGZ1bmN0aW9uKGMpe3YoYyxiLmhyZWYsYi5tZWRpYSksb1tiLmhyZWZdPSEwLGEuc2V0VGltZW91dChmdW5jdGlvbigpe3coKX0sMCl9KX19LHg9ZnVuY3Rpb24oKXtmb3IodmFyIGI9MDtiPHMubGVuZ3RoO2IrKyl7dmFyIGM9c1tiXSxlPWMuaHJlZixmPWMubWVkaWEsZz1jLnJlbCYmInN0eWxlc2hlZXQiPT09Yy5yZWwudG9Mb3dlckNhc2UoKTtlJiZnJiYhb1tlXSYmKGMuc3R5bGVTaGVldCYmYy5zdHlsZVNoZWV0LnJhd0Nzc1RleHQ/KHYoYy5zdHlsZVNoZWV0LnJhd0Nzc1RleHQsZSxmKSxvW2VdPSEwKTooIS9eKFthLXpBLVo6XSpcL1wvKS8udGVzdChlKSYmIXJ8fGUucmVwbGFjZShSZWdFeHAuJDEsIiIpLnNwbGl0KCIvIilbMF09PT1hLmxvY2F0aW9uLmhvc3QpJiYoIi8vIj09PWUuc3Vic3RyaW5nKDAsMikmJihlPWEubG9jYXRpb24ucHJvdG9jb2wrZSksZC5wdXNoKHtocmVmOmUsbWVkaWE6Zn0pKSl9dygpfTt4KCksYy51cGRhdGU9eCxjLmdldEVtVmFsdWU9dCxhLmFkZEV2ZW50TGlzdGVuZXI/YS5hZGRFdmVudExpc3RlbmVyKCJyZXNpemUiLGIsITEpOmEuYXR0YWNoRXZlbnQmJmEuYXR0YWNoRXZlbnQoIm9ucmVzaXplIixiKX19KHRoaXMpOwp9Owo="></script>
 <script src="data:application/x-javascript;base64,CgovKioKICogalF1ZXJ5IFBsdWdpbjogU3RpY2t5IFRhYnMKICoKICogQGF1dGhvciBBaWRhbiBMaXN0ZXIgPGFpZGFuQHBocC5uZXQ+CiAqIGFkYXB0ZWQgYnkgUnViZW4gQXJzbGFuIHRvIGFjdGl2YXRlIHBhcmVudCB0YWJzIHRvbwogKiBodHRwOi8vd3d3LmFpZGFubGlzdGVyLmNvbS8yMDE0LzAzL3BlcnNpc3RpbmctdGhlLXRhYi1zdGF0ZS1pbi1ib290c3RyYXAvCiAqLwooZnVuY3Rpb24oJCkgewogICJ1c2Ugc3RyaWN0IjsKICAkLmZuLnJtYXJrZG93blN0aWNreVRhYnMgPSBmdW5jdGlvbigpIHsKICAgIHZhciBjb250ZXh0ID0gdGhpczsKICAgIC8vIFNob3cgdGhlIHRhYiBjb3JyZXNwb25kaW5nIHdpdGggdGhlIGhhc2ggaW4gdGhlIFVSTCwgb3IgdGhlIGZpcnN0IHRhYgogICAgdmFyIHNob3dTdHVmZkZyb21IYXNoID0gZnVuY3Rpb24oKSB7CiAgICAgIHZhciBoYXNoID0gd2luZG93LmxvY2F0aW9uLmhhc2g7CiAgICAgIHZhciBzZWxlY3RvciA9IGhhc2ggPyAnYVtocmVmPSInICsgaGFzaCArICciXScgOiAnbGkuYWN0aXZlID4gYSc7CiAgICAgIHZhciAkc2VsZWN0b3IgPSAkKHNlbGVjdG9yLCBjb250ZXh0KTsKICAgICAgaWYoJHNlbGVjdG9yLmRhdGEoJ3RvZ2dsZScpID09PSAidGFiIikgewogICAgICAgICRzZWxlY3Rvci50YWIoJ3Nob3cnKTsKICAgICAgICAvLyB3YWxrIHVwIHRoZSBhbmNlc3RvcnMgb2YgdGhpcyBlbGVtZW50LCBzaG93IGFueSBoaWRkZW4gdGFicwogICAgICAgICRzZWxlY3Rvci5wYXJlbnRzKCcuc2VjdGlvbi50YWJzZXQnKS5lYWNoKGZ1bmN0aW9uKGksIGVsbSkgewogICAgICAgICAgdmFyIGxpbmsgPSAkKCdhW2hyZWY9IiMnICsgJChlbG0pLmF0dHIoJ2lkJykgKyAnIl0nKTsKICAgICAgICAgIGlmKGxpbmsuZGF0YSgndG9nZ2xlJykgPT09ICJ0YWIiKSB7CiAgICAgICAgICAgIGxpbmsudGFiKCJzaG93Iik7CiAgICAgICAgICB9CiAgICAgICAgfSk7CiAgICAgIH0KICAgIH07CgoKICAgIC8vIFNldCB0aGUgY29ycmVjdCB0YWIgd2hlbiB0aGUgcGFnZSBsb2FkcwogICAgc2hvd1N0dWZmRnJvbUhhc2goY29udGV4dCk7CgogICAgLy8gU2V0IHRoZSBjb3JyZWN0IHRhYiB3aGVuIGEgdXNlciB1c2VzIHRoZWlyIGJhY2svZm9yd2FyZCBidXR0b24KICAgICQod2luZG93KS5vbignaGFzaGNoYW5nZScsIGZ1bmN0aW9uKCkgewogICAgICBzaG93U3R1ZmZGcm9tSGFzaChjb250ZXh0KTsKICAgIH0pOwoKICAgIC8vIENoYW5nZSB0aGUgVVJMIHdoZW4gdGFicyBhcmUgY2xpY2tlZAogICAgJCgnYScsIGNvbnRleHQpLm9uKCdjbGljaycsIGZ1bmN0aW9uKGUpIHsKICAgICAgaGlzdG9yeS5wdXNoU3RhdGUobnVsbCwgbnVsbCwgdGhpcy5ocmVmKTsKICAgICAgc2hvd1N0dWZmRnJvbUhhc2goY29udGV4dCk7CiAgICB9KTsKCiAgICByZXR1cm4gdGhpczsKICB9Owp9KGpRdWVyeSkpOwoKd2luZG93LmJ1aWxkVGFic2V0cyA9IGZ1bmN0aW9uKHRvY0lEKSB7CgogIC8vIGJ1aWxkIGEgdGFic2V0IGZyb20gYSBzZWN0aW9uIGRpdiB3aXRoIHRoZSAudGFic2V0IGNsYXNzCiAgZnVuY3Rpb24gYnVpbGRUYWJzZXQodGFic2V0KSB7CgogICAgLy8gY2hlY2sgZm9yIGZhZGUgYW5kIHBpbGxzIG9wdGlvbnMKICAgIHZhciBmYWRlID0gdGFic2V0Lmhhc0NsYXNzKCJ0YWJzZXQtZmFkZSIpOwogICAgdmFyIHBpbGxzID0gdGFic2V0Lmhhc0NsYXNzKCJ0YWJzZXQtcGlsbHMiKTsKICAgIHZhciBuYXZDbGFzcyA9IHBpbGxzID8gIm5hdi1waWxscyIgOiAibmF2LXRhYnMiOwoKICAgIC8vIGRldGVybWluZSB0aGUgaGVhZGluZyBsZXZlbCBvZiB0aGUgdGFic2V0IGFuZCB0YWJzCiAgICB2YXIgbWF0Y2ggPSB0YWJzZXQuYXR0cignY2xhc3MnKS5tYXRjaCgvbGV2ZWwoXGQpIC8pOwogICAgaWYgKG1hdGNoID09PSBudWxsKQogICAgICByZXR1cm47CiAgICB2YXIgdGFic2V0TGV2ZWwgPSBOdW1iZXIobWF0Y2hbMV0pOwogICAgdmFyIHRhYkxldmVsID0gdGFic2V0TGV2ZWwgKyAxOwoKICAgIC8vIGZpbmQgYWxsIHN1YmhlYWRpbmdzIGltbWVkaWF0ZWx5IGJlbG93CiAgICB2YXIgdGFicyA9IHRhYnNldC5maW5kKCJkaXYuc2VjdGlvbi5sZXZlbCIgKyB0YWJMZXZlbCk7CiAgICBpZiAoIXRhYnMubGVuZ3RoKQogICAgICByZXR1cm47CgogICAgLy8gY3JlYXRlIHRhYmxpc3QgYW5kIHRhYi1jb250ZW50IGVsZW1lbnRzCiAgICB2YXIgdGFiTGlzdCA9ICQoJzx1bCBjbGFzcz0ibmF2ICcgKyBuYXZDbGFzcyArICciIHJvbGU9InRhYmxpc3QiPjwvdWw+Jyk7CiAgICAkKHRhYnNbMF0pLmJlZm9yZSh0YWJMaXN0KTsKICAgIHZhciB0YWJDb250ZW50ID0gJCgnPGRpdiBjbGFzcz0idGFiLWNvbnRlbnQiPjwvZGl2PicpOwogICAgJCh0YWJzWzBdKS5iZWZvcmUodGFiQ29udGVudCk7CgogICAgLy8gYnVpbGQgdGhlIHRhYnNldAogICAgdmFyIGFjdGl2ZVRhYiA9IDA7CiAgICB0YWJzLmVhY2goZnVuY3Rpb24oaSkgewoKICAgICAgLy8gZ2V0IHRoZSB0YWIgZGl2CiAgICAgIHZhciB0YWIgPSAkKHRhYnNbaV0pOwoKICAgICAgLy8gZ2V0IHRoZSBpZCB0aGVuIHNhbml0aXplIGl0IGZvciB1c2Ugd2l0aCBib290c3RyYXAgdGFicwogICAgICB2YXIgaWQgPSB0YWIuYXR0cignaWQnKTsKCiAgICAgIC8vIHNlZSBpZiB0aGlzIGlzIG1hcmtlZCBhcyB0aGUgYWN0aXZlIHRhYgogICAgICBpZiAodGFiLmhhc0NsYXNzKCdhY3RpdmUnKSkKICAgICAgICBhY3RpdmVUYWIgPSBpOwoKICAgICAgLy8gcmVtb3ZlIGFueSB0YWJsZSBvZiBjb250ZW50cyBlbnRyaWVzIGFzc29jaWF0ZWQgd2l0aAogICAgICAvLyB0aGlzIElEIChzaW5jZSB3ZSdsbCBiZSByZW1vdmluZyB0aGUgaGVhZGluZyBlbGVtZW50KQogICAgICAkKCJkaXYjIiArIHRvY0lEICsgIiBsaSBhW2hyZWY9JyMiICsgaWQgKyAiJ10iKS5wYXJlbnQoKS5yZW1vdmUoKTsKCiAgICAgIC8vIHNhbml0aXplIHRoZSBpZCBmb3IgdXNlIHdpdGggYm9vdHN0cmFwIHRhYnMKICAgICAgaWQgPSBpZC5yZXBsYWNlKC9bLlwvPyYhIzw+XS9nLCAnJykucmVwbGFjZSgvXHMvZywgJ18nKTsKICAgICAgdGFiLmF0dHIoJ2lkJywgaWQpOwoKICAgICAgLy8gZ2V0IHRoZSBoZWFkaW5nIGVsZW1lbnQgd2l0aGluIGl0LCBncmFiIGl0J3MgdGV4dCwgdGhlbiByZW1vdmUgaXQKICAgICAgdmFyIGhlYWRpbmcgPSB0YWIuZmluZCgnaCcgKyB0YWJMZXZlbCArICc6Zmlyc3QnKTsKICAgICAgdmFyIGhlYWRpbmdUZXh0ID0gaGVhZGluZy5odG1sKCk7CiAgICAgIGhlYWRpbmcucmVtb3ZlKCk7CgogICAgICAvLyBidWlsZCBhbmQgYXBwZW5kIHRoZSB0YWIgbGlzdCBpdGVtCiAgICAgIHZhciBhID0gJCgnPGEgcm9sZT0idGFiIiBkYXRhLXRvZ2dsZT0idGFiIj4nICsgaGVhZGluZ1RleHQgKyAnPC9hPicpOwogICAgICBhLmF0dHIoJ2hyZWYnLCAnIycgKyBpZCk7CiAgICAgIGEuYXR0cignYXJpYS1jb250cm9scycsIGlkKTsKICAgICAgdmFyIGxpID0gJCgnPGxpIHJvbGU9InByZXNlbnRhdGlvbiI+PC9saT4nKTsKICAgICAgbGkuYXBwZW5kKGEpOwogICAgICB0YWJMaXN0LmFwcGVuZChsaSk7CgogICAgICAvLyBzZXQgaXQncyBhdHRyaWJ1dGVzCiAgICAgIHRhYi5hdHRyKCdyb2xlJywgJ3RhYnBhbmVsJyk7CiAgICAgIHRhYi5hZGRDbGFzcygndGFiLXBhbmUnKTsKICAgICAgdGFiLmFkZENsYXNzKCd0YWJiZWQtcGFuZScpOwogICAgICBpZiAoZmFkZSkKICAgICAgICB0YWIuYWRkQ2xhc3MoJ2ZhZGUnKTsKCiAgICAgIC8vIG1vdmUgaXQgaW50byB0aGUgdGFiIGNvbnRlbnQgZGl2CiAgICAgIHRhYi5kZXRhY2goKS5hcHBlbmRUbyh0YWJDb250ZW50KTsKICAgIH0pOwoKICAgIC8vIHNldCBhY3RpdmUgdGFiCiAgICAkKHRhYkxpc3QuY2hpbGRyZW4oJ2xpJylbYWN0aXZlVGFiXSkuYWRkQ2xhc3MoJ2FjdGl2ZScpOwogICAgdmFyIGFjdGl2ZSA9ICQodGFiQ29udGVudC5jaGlsZHJlbignZGl2LnNlY3Rpb24nKVthY3RpdmVUYWJdKTsKICAgIGFjdGl2ZS5hZGRDbGFzcygnYWN0aXZlJyk7CiAgICBpZiAoZmFkZSkKICAgICAgYWN0aXZlLmFkZENsYXNzKCdpbicpOwoKICAgIGlmICh0YWJzZXQuaGFzQ2xhc3MoInRhYnNldC1zdGlja3kiKSkKICAgICAgdGFic2V0LnJtYXJrZG93blN0aWNreVRhYnMoKTsKICB9CgogIC8vIGNvbnZlcnQgc2VjdGlvbiBkaXZzIHdpdGggdGhlIC50YWJzZXQgY2xhc3MgdG8gdGFic2V0cwogIHZhciB0YWJzZXRzID0gJCgiZGl2LnNlY3Rpb24udGFic2V0Iik7CiAgdGFic2V0cy5lYWNoKGZ1bmN0aW9uKGkpIHsKICAgIGJ1aWxkVGFic2V0KCQodGFic2V0c1tpXSkpOwogIH0pOwp9OwoK"></script>
 <script src="data:application/x-javascript;base64,CndpbmRvdy5pbml0aWFsaXplQ29kZUZvbGRpbmcgPSBmdW5jdGlvbihzaG93KSB7CgogIC8vIGhhbmRsZXJzIGZvciBzaG93LWFsbCBhbmQgaGlkZSBhbGwKICAkKCIjcm1kLXNob3ctYWxsLWNvZGUiKS5jbGljayhmdW5jdGlvbigpIHsKICAgICQoJ2Rpdi5yLWNvZGUtY29sbGFwc2UnKS5lYWNoKGZ1bmN0aW9uKCkgewogICAgICAkKHRoaXMpLmNvbGxhcHNlKCdzaG93Jyk7CiAgICB9KTsKICB9KTsKICAkKCIjcm1kLWhpZGUtYWxsLWNvZGUiKS5jbGljayhmdW5jdGlvbigpIHsKICAgICQoJ2Rpdi5yLWNvZGUtY29sbGFwc2UnKS5lYWNoKGZ1bmN0aW9uKCkgewogICAgICAkKHRoaXMpLmNvbGxhcHNlKCdoaWRlJyk7CiAgICB9KTsKICB9KTsKCiAgLy8gaW5kZXggZm9yIHVuaXF1ZSBjb2RlIGVsZW1lbnQgaWRzCiAgdmFyIGN1cnJlbnRJbmRleCA9IDE7CgogIC8vIHNlbGVjdCBhbGwgUiBjb2RlIGJsb2NrcwogIHZhciByQ29kZUJsb2NrcyA9ICQoJ3ByZS5yLCBwcmUucHl0aG9uLCBwcmUuYmFzaCwgcHJlLnNxbCwgcHJlLmNwcCwgcHJlLnN0YW4sIHByZS5qdWxpYSwgcHJlLmZvbGRhYmxlJyk7CiAgckNvZGVCbG9ja3MuZWFjaChmdW5jdGlvbigpIHsKCiAgICAvLyBjcmVhdGUgYSBjb2xsYXBzYWJsZSBkaXYgdG8gd3JhcCB0aGUgY29kZSBpbgogICAgdmFyIGRpdiA9ICQoJzxkaXYgY2xhc3M9ImNvbGxhcHNlIHItY29kZS1jb2xsYXBzZSI+PC9kaXY+Jyk7CiAgICBzaG93ID0gKHNob3cgfHwgJCh0aGlzKS5oYXNDbGFzcygnZm9sZC1zaG93JykpICYmICEkKHRoaXMpLmhhc0NsYXNzKCdmb2xkLWhpZGUnKTsKICAgIGlmIChzaG93KSBkaXYuYWRkQ2xhc3MoJ2luJyk7CiAgICB2YXIgaWQgPSAncmNvZGUtNjQzRTBGMzYnICsgY3VycmVudEluZGV4Kys7CiAgICBkaXYuYXR0cignaWQnLCBpZCk7CiAgICAkKHRoaXMpLmJlZm9yZShkaXYpOwogICAgJCh0aGlzKS5kZXRhY2goKS5hcHBlbmRUbyhkaXYpOwoKICAgIC8vIGFkZCBhIHNob3cgY29kZSBidXR0b24gcmlnaHQgYWJvdmUKICAgIHZhciBzaG93Q29kZVRleHQgPSAkKCc8c3Bhbj4nICsgKHNob3cgPyAnSGlkZScgOiAnQ29kZScpICsgJzwvc3Bhbj4nKTsKICAgIHZhciBzaG93Q29kZUJ1dHRvbiA9ICQoJzxidXR0b24gdHlwZT0iYnV0dG9uIiBjbGFzcz0iYnRuIGJ0bi1kZWZhdWx0IGJ0bi14cyBjb2RlLWZvbGRpbmctYnRuIHB1bGwtcmlnaHQiPjwvYnV0dG9uPicpOwogICAgc2hvd0NvZGVCdXR0b24uYXBwZW5kKHNob3dDb2RlVGV4dCk7CiAgICBzaG93Q29kZUJ1dHRvbgogICAgICAgIC5hdHRyKCdkYXRhLXRvZ2dsZScsICdjb2xsYXBzZScpCiAgICAgICAgLmF0dHIoJ2RhdGEtdGFyZ2V0JywgJyMnICsgaWQpCiAgICAgICAgLmF0dHIoJ2FyaWEtZXhwYW5kZWQnLCBzaG93KQogICAgICAgIC5hdHRyKCdhcmlhLWNvbnRyb2xzJywgaWQpOwoKICAgIHZhciBidXR0b25Sb3cgPSAkKCc8ZGl2IGNsYXNzPSJyb3ciPjwvZGl2PicpOwogICAgdmFyIGJ1dHRvbkNvbCA9ICQoJzxkaXYgY2xhc3M9ImNvbC1tZC0xMiI+PC9kaXY+Jyk7CgogICAgYnV0dG9uQ29sLmFwcGVuZChzaG93Q29kZUJ1dHRvbik7CiAgICBidXR0b25Sb3cuYXBwZW5kKGJ1dHRvbkNvbCk7CgogICAgZGl2LmJlZm9yZShidXR0b25Sb3cpOwoKICAgIC8vIHVwZGF0ZSBzdGF0ZSBvZiBidXR0b24gb24gc2hvdy9oaWRlCiAgICBkaXYub24oJ2hpZGRlbi5icy5jb2xsYXBzZScsIGZ1bmN0aW9uICgpIHsKICAgICAgc2hvd0NvZGVUZXh0LnRleHQoJ0NvZGUnKTsKICAgIH0pOwogICAgZGl2Lm9uKCdzaG93LmJzLmNvbGxhcHNlJywgZnVuY3Rpb24gKCkgewogICAgICBzaG93Q29kZVRleHQudGV4dCgnSGlkZScpOwogICAgfSk7CiAgfSk7Cgp9Cg=="></script>
+<script src="data:application/x-javascript;base64,JChkb2N1bWVudCkucmVhZHkoZnVuY3Rpb24oKXsKICAgIGlmICh0eXBlb2YgJCgnW2RhdGEtdG9nZ2xlPSJ0b29sdGlwIl0nKS50b29sdGlwID09PSAnZnVuY3Rpb24nKSB7CiAgICAgICAgJCgnW2RhdGEtdG9nZ2xlPSJ0b29sdGlwIl0nKS50b29sdGlwKCk7CiAgICB9CiAgICBpZiAoJCgnW2RhdGEtdG9nZ2xlPSJwb3BvdmVyIl0nKS5wb3BvdmVyID09PSAnZnVuY3Rpb24nKSB7CiAgICAgICAgJCgnW2RhdGEtdG9nZ2xlPSJwb3BvdmVyIl0nKS5wb3BvdmVyKCk7CiAgICB9Cn0pOwo="></script>
+<link href="data:text/css;charset=utf-8,%0A%2Elightable%2Dminimal%20%7B%0Aborder%2Dcollapse%3A%20separate%3B%0Aborder%2Dspacing%3A%2016px%201px%3B%0Awidth%3A%20100%25%3B%0Amargin%2Dbottom%3A%2010px%3B%0A%7D%0A%2Elightable%2Dminimal%20td%20%7B%0Amargin%2Dleft%3A%205px%3B%0Amargin%2Dright%3A%205px%3B%0A%7D%0A%2Elightable%2Dminimal%20th%20%7B%0Amargin%2Dleft%3A%205px%3B%0Amargin%2Dright%3A%205px%3B%0A%7D%0A%2Elightable%2Dminimal%20thead%20tr%3Alast%2Dchild%20th%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%2300000050%3B%0Aempty%2Dcells%3A%20hide%3B%0A%7D%0A%2Elightable%2Dminimal%20tbody%20tr%3Afirst%2Dchild%20td%20%7B%0Apadding%2Dtop%3A%200%2E5em%3B%0A%7D%0A%2Elightable%2Dminimal%2Elightable%2Dhover%20tbody%20tr%3Ahover%20%7B%0Abackground%2Dcolor%3A%20%23f5f5f5%3B%0A%7D%0A%2Elightable%2Dminimal%2Elightable%2Dstriped%20tbody%20tr%3Anth%2Dchild%28even%29%20%7B%0Abackground%2Dcolor%3A%20%23f5f5f5%3B%0A%7D%0A%2Elightable%2Dclassic%20%7B%0Aborder%2Dtop%3A%200%2E16em%20solid%20%23111111%3B%0Awidth%3A%20100%25%3B%0Amargin%2Dbottom%3A%2010px%3B%0Amargin%3A%2010px%205px%3B%0A%7D%0A%2Elightable%2Dclassic%20caption%20%7B%0Acolor%3A%20%23222222%3B%0A%7D%0A%2Elightable%2Dclassic%20td%20%7B%0Apadding%2Dleft%3A%205px%3B%0Apadding%2Dright%3A%205px%3B%0Acolor%3A%20%23222222%3B%0A%7D%0A%2Elightable%2Dclassic%20th%20%7B%0Apadding%2Dleft%3A%205px%3B%0Apadding%2Dright%3A%205px%3B%0Afont%2Dweight%3A%20normal%3B%0Acolor%3A%20%23222222%3B%0A%7D%0A%2Elightable%2Dclassic%20thead%20tr%3Alast%2Dchild%20th%20%7B%0Aborder%2Dbottom%3A%200%2E10em%20solid%20%23111111%3B%0A%7D%0A%2Elightable%2Dclassic%20tbody%20tr%3Alast%2Dchild%20td%20%7B%0Aborder%2Dbottom%3A%200%2E14em%20solid%20%23111111%3B%0A%7D%0A%2Elightable%2Dclassic%2Elightable%2Dhover%20tbody%20tr%3Ahover%20%7B%0Abackground%2Dcolor%3A%20%23F9EEC1%3B%0A%7D%0A%2Elightable%2Dclassic%2Elightable%2Dstriped%20tbody%20tr%3Anth%2Dchild%28even%29%20%7B%0Abackground%2Dcolor%3A%20%23f5f5f5%3B%0A%7D%0A%2Elightable%2Dclassic%2D2%20%7B%0Aborder%2Dtop%3A%203px%20double%20%23111111%3B%0Awidth%3A%20100%25%3B%0Amargin%2Dbottom%3A%2010px%3B%0A%7D%0A%2Elightable%2Dclassic%2D2%20caption%20%7B%0Acolor%3A%20%23222222%3B%0A%7D%0A%2Elightable%2Dclassic%2D2%20td%20%7B%0Apadding%2Dleft%3A%205px%3B%0Apadding%2Dright%3A%205px%3B%0Acolor%3A%20%23222222%3B%0A%7D%0A%2Elightable%2Dclassic%2D2%20th%20%7B%0Apadding%2Dleft%3A%205px%3B%0Apadding%2Dright%3A%205px%3B%0Afont%2Dweight%3A%20normal%3B%0Acolor%3A%20%23222222%3B%0A%7D%0A%2Elightable%2Dclassic%2D2%20tbody%20tr%3Alast%2Dchild%20td%20%7B%0Aborder%2Dbottom%3A%203px%20double%20%23111111%3B%0A%7D%0A%2Elightable%2Dclassic%2D2%20thead%20tr%3Alast%2Dchild%20th%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23111111%3B%0A%7D%0A%2Elightable%2Dclassic%2D2%2Elightable%2Dhover%20tbody%20tr%3Ahover%20%7B%0Abackground%2Dcolor%3A%20%23F9EEC1%3B%0A%7D%0A%2Elightable%2Dclassic%2D2%2Elightable%2Dstriped%20tbody%20tr%3Anth%2Dchild%28even%29%20%7B%0Abackground%2Dcolor%3A%20%23f5f5f5%3B%0A%7D%0A%2Elightable%2Dmaterial%20%7B%0Amin%2Dwidth%3A%20100%25%3B%0Awhite%2Dspace%3A%20nowrap%3B%0Atable%2Dlayout%3A%20fixed%3B%0Afont%2Dfamily%3A%20Roboto%2C%20sans%2Dserif%3B%0Aborder%3A%201px%20solid%20%23EEE%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0Amargin%2Dbottom%3A%2010px%3B%0A%7D%0A%2Elightable%2Dmaterial%20th%20%7B%0Aheight%3A%2056px%3B%0Apadding%2Dleft%3A%2016px%3B%0Apadding%2Dright%3A%2016px%3B%0A%7D%0A%2Elightable%2Dmaterial%20td%20%7B%0Aheight%3A%2052px%3B%0Apadding%2Dleft%3A%2016px%3B%0Apadding%2Dright%3A%2016px%3B%0Aborder%2Dtop%3A%201px%20solid%20%23eeeeee%3B%0A%7D%0A%2Elightable%2Dmaterial%2Elightable%2Dhover%20tbody%20tr%3Ahover%20%7B%0Abackground%2Dcolor%3A%20%23f5f5f5%3B%0A%7D%0A%2Elightable%2Dmaterial%2Elightable%2Dstriped%20tbody%20tr%3Anth%2Dchild%28even%29%20%7B%0Abackground%2Dcolor%3A%20%23f5f5f5%3B%0A%7D%0A%2Elightable%2Dmaterial%2Elightable%2Dstriped%20tbody%20td%20%7B%0Aborder%3A%200%3B%0A%7D%0A%2Elightable%2Dmaterial%2Elightable%2Dstriped%20thead%20tr%3Alast%2Dchild%20th%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ddd%3B%0A%7D%0A%2Elightable%2Dmaterial%2Ddark%20%7B%0Amin%2Dwidth%3A%20100%25%3B%0Awhite%2Dspace%3A%20nowrap%3B%0Atable%2Dlayout%3A%20fixed%3B%0Afont%2Dfamily%3A%20Roboto%2C%20sans%2Dserif%3B%0Aborder%3A%201px%20solid%20%23FFFFFF12%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0Amargin%2Dbottom%3A%2010px%3B%0Abackground%2Dcolor%3A%20%23363640%3B%0A%7D%0A%2Elightable%2Dmaterial%2Ddark%20th%20%7B%0Aheight%3A%2056px%3B%0Apadding%2Dleft%3A%2016px%3B%0Apadding%2Dright%3A%2016px%3B%0Acolor%3A%20%23FFFFFF60%3B%0A%7D%0A%2Elightable%2Dmaterial%2Ddark%20td%20%7B%0Aheight%3A%2052px%3B%0Apadding%2Dleft%3A%2016px%3B%0Apadding%2Dright%3A%2016px%3B%0Acolor%3A%20%23FFFFFF%3B%0Aborder%2Dtop%3A%201px%20solid%20%23FFFFFF12%3B%0A%7D%0A%2Elightable%2Dmaterial%2Ddark%2Elightable%2Dhover%20tbody%20tr%3Ahover%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF12%3B%0A%7D%0A%2Elightable%2Dmaterial%2Ddark%2Elightable%2Dstriped%20tbody%20tr%3Anth%2Dchild%28even%29%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF12%3B%0A%7D%0A%2Elightable%2Dmaterial%2Ddark%2Elightable%2Dstriped%20tbody%20td%20%7B%0Aborder%3A%200%3B%0A%7D%0A%2Elightable%2Dmaterial%2Ddark%2Elightable%2Dstriped%20thead%20tr%3Alast%2Dchild%20th%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23FFFFFF12%3B%0A%7D%0A%2Elightable%2Dpaper%20%7B%0Awidth%3A%20100%25%3B%0Amargin%2Dbottom%3A%2010px%3B%0Acolor%3A%20%23444%3B%0A%7D%0A%2Elightable%2Dpaper%20thead%20tr%3Alast%2Dchild%20th%20%7B%0Acolor%3A%20%23666%3B%0Avertical%2Dalign%3A%20bottom%3B%0Aborder%2Dbottom%3A%201px%20solid%20%2300000020%3B%0Aline%2Dheight%3A%201%2E15em%3B%0Apadding%3A%2010px%205px%3B%0A%7D%0A%2Elightable%2Dpaper%20td%20%7B%0Avertical%2Dalign%3A%20middle%3B%0Aborder%2Dbottom%3A%201px%20solid%20%2300000010%3B%0Aline%2Dheight%3A%201%2E15em%3B%0Apadding%3A%207px%205px%3B%0A%7D%0A%2Elightable%2Dpaper%2Elightable%2Dhover%20tbody%20tr%3Ahover%20%7B%0Abackground%2Dcolor%3A%20%23F9EEC1%3B%0A%7D%0A%2Elightable%2Dpaper%2Elightable%2Dstriped%20tbody%20tr%3Anth%2Dchild%28even%29%20%7B%0Abackground%2Dcolor%3A%20%2300000008%3B%0A%7D%0A%2Elightable%2Dpaper%2Elightable%2Dstriped%20tbody%20td%20%7B%0Aborder%3A%200%3B%0A%7D%0A" rel="stylesheet" />
 <a href="https://github.com/EunseonAhn/FinalProject_506" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
 
@@ -250,7 +252,7 @@ summary {
 
 <h1 class="title toc-ignore">STATS 506 F20, Final Project</h1>
 <h4 class="author">EunSeon Ahn, <a href="mailto:eunahn@umich.edu">eunahn@umich.edu</a></h4>
-<h4 class="date">December 10, 2020</h4>
+<h4 class="date">December 13, 2020</h4>
 
 </div>
 
@@ -422,86 +424,6 @@ cbec =<span class="st"> </span>cbec <span class="op">%&gt;%</span><span class="s
 </tr>
 </tbody>
 </table>
-<p>The data will be analyzed with data frame as shown below:</p>
-<div class="sourceCode"><pre class="sourceCode r fold-show"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(cbec))</code></pre></div>
-<table>
-<colgroup>
-<col width="1%"></col>
-<col width="4%"></col>
-<col width="5%"></col>
-<col width="34%"></col>
-<col width="27%"></col>
-<col width="13%"></col>
-<col width="12%"></col>
-</colgroup>
-<thead>
-<tr class="header">
-<th align="right">id</th>
-<th align="right">w</th>
-<th align="left">year</th>
-<th align="left">wall</th>
-<th align="left">roof</th>
-<th align="left">size</th>
-<th align="left">size_group</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">1559.82862</td>
-<td align="left">1970 to 1979</td>
-<td align="left">Aluminum, asbestos, plastic, or wood materials (siding, shingles, tiles, or shakes)</td>
-<td align="left">Slate or tile shingles</td>
-<td align="left">1,001 to 5,000 square feet</td>
-<td align="left">1001 to 25,000 sq. ft.</td>
-</tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">143.94635</td>
-<td align="left">1980 to 1989</td>
-<td align="left">Concrete block or poured concrete (above grade)</td>
-<td align="left">Plastic, rubber, or synthetic sheeting (single or multiple ply)</td>
-<td align="left">100,001 to 200,000 square feet</td>
-<td align="left">25,001 to 200,000 sq. ft.</td>
-</tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">1851.66972</td>
-<td align="left">1946 to 1959</td>
-<td align="left">Aluminum, asbestos, plastic, or wood materials (siding, shingles, tiles, or shakes)</td>
-<td align="left">Asphalt, fiberglass, or other shingles</td>
-<td align="left">1,001 to 5,000 square feet</td>
-<td align="left">1001 to 25,000 sq. ft.</td>
-</tr>
-<tr class="even">
-<td align="right">4</td>
-<td align="right">17.19126</td>
-<td align="left">1980 to 1989</td>
-<td align="left">Window or vision glass (glass that can be seen through)</td>
-<td align="left">Built-up (tar, felts, or fiberglass and a ballast, such as stone)</td>
-<td align="left">200,001 to 500,000 square feet</td>
-<td align="left">200,001 to over 1 mil. sq. ft</td>
-</tr>
-<tr class="odd">
-<td align="right">5</td>
-<td align="right">273.99707</td>
-<td align="left">1970 to 1979</td>
-<td align="left">Concrete block or poured concrete (above grade)</td>
-<td align="left">Plastic, rubber, or synthetic sheeting (single or multiple ply)</td>
-<td align="left">25,001 to 50,000 square feet</td>
-<td align="left">25,001 to 200,000 sq. ft.</td>
-</tr>
-<tr class="even">
-<td align="right">6</td>
-<td align="right">1807.46287</td>
-<td align="left">Before 1920</td>
-<td align="left">Brick, stone, or stucco</td>
-<td align="left">Built-up (tar, felts, or fiberglass and a ballast, such as stone)</td>
-<td align="left">1,001 to 5,000 square feet</td>
-<td align="left">1001 to 25,000 sq. ft.</td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 <div id="methods" class="section level2">
@@ -561,8 +483,30 @@ roof_year =<span class="st"> </span><span class="kw">gen_CI</span>(cbec, <span c
 roof_year_size =<span class="st"> </span><span class="kw">gen_CI</span>(cbec, <span class="kw">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;size_group&quot;</span>), <span class="st">&quot;roof&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">all_of</span>(<span class="kw">c</span>(<span class="st">'p'</span>, <span class="st">'lwr'</span>, <span class="st">'upr'</span>)), 
                 <span class="dt">.fns =</span> <span class="cf">function</span>(x) <span class="dv">100</span> <span class="op">*</span><span class="st"> </span>x))</code></pre></div>
-<p>To investigate the relationship between the construction material (roof and wall) and the construction year to see if certain building materials were preferred in different years and whether certain materials are preferred for smaller vs larger buildings, descriptive statistics (mean percentage) will be calculated to estimate proportion of different wall and roof construction material by year built and square footage. The 95% confidence intervals will be calculated using the replicate weights by using Jackknife method to estimate standard error (<a href="https://www.eia.gov/consumption/commercial/data/2012/pdf/user_guide_public_use_aug2016.pdf">see for reference</a>).</p>
-<p>The code containing this analysis is available through this <a href="https://github.com/EunseonAhn/FinalProject_506">github repository</a>.</p>
+<p>To investigate the relationship between the construction materials (roof and wall) and the construction year (to see if certain building materials were preferred in different years) and whether certain materials are preferred for smaller vs larger buildings, descriptive statistics, specifically the mean percentage, was calculated to estimate the proportion of different wall and roof construction material by construction year and square footage. The square footage categories provided by the dataset was further collapsed into 3 size categories for better chance of meaning distinction betweeen groups:</p>
+<table>
+<thead>
+<tr class="header">
+<th><a href></a></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Size Category 1</td>
+<td>1001 to 25,000 square feet</td>
+</tr>
+<tr class="even">
+<td>Size Category 2</td>
+<td>25,001 to 200,000 square feet</td>
+</tr>
+<tr class="odd">
+<td>Size Category 3</td>
+<td>200,001 to over 1 million square feet</td>
+</tr>
+</tbody>
+</table>
+<p>The 95% confidence intervals was calculated using the replicate weights through Jackknife method of estimating the standard error (<a href="https://www.eia.gov/consumption/commercial/data/2012/pdf/user_guide_public_use_aug2016.pdf">see for reference</a>). The variance of a population parameter is estimated by: <span class="math display">\[\hat V( \hat \theta) = \sum\limits_{r=1}^R \alpha_r (\hat \theta_r - \hat \theta) ^2 \]</span> where the coefficient for replicate r, <span class="math inline">\(\alpha_r\)</span>, = 1 for the current dataset and the number of replicate samples. The code containing this analysis is available through this <a href="https://github.com/EunseonAhn/FinalProject_506">github repository</a>.</p>
 </div>
 <div id="results" class="section level2 tabset tabset-fade tabset-pills">
 <h2>Results</h2>
@@ -636,7 +580,1363 @@ roof_year_size <span class="op">%&gt;%</span>
 </div>
 <div id="table-1" class="section level4">
 <h4>Table</h4>
-<p>table</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cap_tab1 =<span class="st"> </span><span class="kw">paste</span>(
+ <span class="st">&quot;**Table 1.** *Wall construction material used by buildings (%) in 2012. *&quot;</span>,
+ <span class="st">&quot;Numbers in parantheses represent 95% confidence intervals.&quot;</span>
+)
+
+t =<span class="st"> </span>wall_year_size <span class="op">%&gt;%</span>
+<span class="st">   </span><span class="kw">mutate</span>(
+    <span class="dt">pretty =</span> <span class="kw">sprintf</span>(<span class="st">'&lt;div&gt;%4.1f&lt;/div&gt; &lt;div&gt;(%4.1f, %4.1f)&lt;/div&gt;'</span>, 
+                     p, lwr, upr)
+  ) 
+
+pivot_all =<span class="st"> </span><span class="cf">function</span> (t){
+  t1 =<span class="st"> </span><span class="kw">list</span>()
+  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(t<span class="op">$</span>year))) { 
+
+    t1[[i]] =<span class="st"> </span>t <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">filter</span>(<span class="kw">as.numeric</span>(year) <span class="op">==</span><span class="st"> </span>i) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">pivot_wider</span>(
+        <span class="dt">id_cols =</span> <span class="kw">c</span>(<span class="st">'wall'</span>, <span class="st">'size_group'</span>),
+        <span class="dt">names_from =</span> <span class="st">'year'</span>,
+        <span class="dt">names_prefix =</span> <span class="st">''</span>,
+        <span class="dt">values_from =</span> <span class="st">'pretty'</span>,
+        <span class="dt">values_fill =</span> <span class="st">'--'</span>
+      )
+  }
+  <span class="kw">return</span> (t1)
+}
+
+t1 =<span class="st"> </span><span class="kw">pivot_all</span>(t)
+joined =<span class="st"> </span>t1 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">reduce</span>(left_join, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;wall&quot;</span>, <span class="st">&quot;size_group&quot;</span>))
+
+joined <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="st">`</span><span class="dt"> </span><span class="st">`</span> =<span class="st"> </span>wall) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>size_group) <span class="op">%&gt;%</span>
+<span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>(
+    <span class="dt">format =</span> <span class="st">'html'</span>, 
+    <span class="dt">escape =</span> <span class="ot">FALSE</span>, 
+    <span class="dt">align =</span> <span class="st">'llcccccc'</span>,
+    <span class="dt">cap =</span> cap_tab1
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span>kableExtra<span class="op">::</span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">full_width =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>kableExtra<span class="op">::</span><span class="kw">pack_rows</span>(<span class="st">&quot;Size: 1001 to 25,000 sqft&quot;</span>, <span class="dv">1</span>, <span class="dv">7</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>kableExtra<span class="op">::</span><span class="kw">pack_rows</span>(<span class="st">&quot;Size: 25,001 to 200,000 sqft&quot;</span>, <span class="dv">8</span>, <span class="dv">11</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>kableExtra<span class="op">::</span><span class="kw">pack_rows</span>(<span class="st">&quot;Size: 200,001 to over 1 mil. sqft&quot;</span>, <span class="dv">12</span>, <span class="dv">15</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>kableExtra<span class="op">::</span><span class="kw">add_header_above</span>(<span class="dt">header =</span> <span class="kw">c</span>(<span class="st">'Wall Material'</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">'Construction Year'</span> =<span class="st"> </span><span class="dv">10</span>)) </code></pre></div>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<strong>Table 1.</strong> <em>Wall construction material used by buildings (%) in 2012. </em> Numbers in parantheses represent 95% confidence intervals.
+</caption>
+<thead>
+<tr>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Wall Material
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="10">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Construction Year
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Before 1920
+</th>
+<th style="text-align:center;">
+1920 to 1945
+</th>
+<th style="text-align:center;">
+1946 to 1959
+</th>
+<th style="text-align:center;">
+1960 to 1969
+</th>
+<th style="text-align:center;">
+1970 to 1979
+</th>
+<th style="text-align:center;">
+1980 to 1989
+</th>
+<th style="text-align:center;">
+1990 to 1999
+</th>
+<th style="text-align:left;">
+2000 to 2003
+</th>
+<th style="text-align:left;">
+2004 to 2007
+</th>
+<th style="text-align:center;">
+2008 to 2012
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="7">
+<td colspan="11" style="border-bottom: 1px solid;">
+<strong>Size: 1001 to 25,000 sqft</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left:  2em;" indentlevel="1">
+Brick, stone, or stucco
+</td>
+<td style="text-align:left;">
+<div>
+55.3
+</div>
+<div>
+(47.2, 63.5)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+55.6
+</div>
+<div>
+(48.7, 62.5)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+47.7
+</div>
+<div>
+(40.7, 54.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+43.0
+</div>
+<div>
+(37.8, 48.3)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+42.8
+</div>
+<div>
+(37.3, 48.2)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+32.3
+</div>
+<div>
+(27.2, 37.4)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+30.3
+</div>
+<div>
+(25.4, 35.3)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+29.8
+</div>
+<div>
+(21.2, 38.4)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+41.9
+</div>
+<div>
+(33.4, 50.4)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+31.9
+</div>
+<div>
+(22.6, 41.1)
+</div>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left:  2em;" indentlevel="1">
+Pre-cast concrete panels
+</td>
+<td style="text-align:left;">
+<div>
+1.1
+</div>
+<div>
+( 0.0, 2.5)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+1.4
+</div>
+<div>
+( 0.0, 2.7)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+1.1
+</div>
+<div>
+( 0.0, 2.2)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+3.8
+</div>
+<div>
+( 1.3, 6.3)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+3.4
+</div>
+<div>
+( 0.3, 6.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+5.1
+</div>
+<div>
+( 0.5, 9.8)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+2.2
+</div>
+<div>
+( 0.4, 4.0)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+3.0
+</div>
+<div>
+( 0.8, 5.1)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+3.5
+</div>
+<div>
+( 0.4, 6.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+3.3
+</div>
+<div>
+( 0.9, 5.7)
+</div>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left:  2em;" indentlevel="1">
+Concrete block or poured concrete (above grade)
+</td>
+<td style="text-align:left;">
+<div>
+5.7
+</div>
+<div>
+( 2.1, 9.2)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+18.4
+</div>
+<div>
+(13.9, 22.9)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+32.7
+</div>
+<div>
+(27.0, 38.5)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+31.3
+</div>
+<div>
+(26.5, 36.0)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+18.4
+</div>
+<div>
+(14.1, 22.8)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+19.8
+</div>
+<div>
+(16.0, 23.5)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+15.5
+</div>
+<div>
+(11.9, 19.1)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+14.2
+</div>
+<div>
+( 9.0, 19.3)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+13.0
+</div>
+<div>
+( 7.5, 18.5)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+14.9
+</div>
+<div>
+( 8.4, 21.4)
+</div>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left:  2em;" indentlevel="1">
+Aluminum, asbestos, plastic, or wood materials (siding, shingles, tiles, or shakes)
+</td>
+<td style="text-align:left;">
+<div>
+33.6
+</div>
+<div>
+(25.1, 42.1)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+22.6
+</div>
+<div>
+(15.9, 29.2)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+14.0
+</div>
+<div>
+(10.3, 17.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+11.4
+</div>
+<div>
+( 7.7, 15.0)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+16.9
+</div>
+<div>
+(12.5, 21.2)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+17.0
+</div>
+<div>
+(13.0, 21.1)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+19.0
+</div>
+<div>
+(14.5, 23.5)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+20.1
+</div>
+<div>
+(13.1, 27.2)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+13.4
+</div>
+<div>
+( 6.7, 20.0)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+17.3
+</div>
+<div>
+( 8.9, 25.8)
+</div>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left:  2em;" indentlevel="1">
+Sheet metal panels
+</td>
+<td style="text-align:left;">
+<div>
+3.7
+</div>
+<div>
+( 0.9, 6.5)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+1.4
+</div>
+<div>
+( 0.1, 2.7)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+3.7
+</div>
+<div>
+( 1.4, 6.1)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+8.7
+</div>
+<div>
+( 4.9, 12.4)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+17.7
+</div>
+<div>
+(12.7, 22.7)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+24.4
+</div>
+<div>
+(18.2, 30.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+32.2
+</div>
+<div>
+(25.7, 38.8)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+32.1
+</div>
+<div>
+(22.9, 41.3)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+24.7
+</div>
+<div>
+(15.4, 34.1)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+30.9
+</div>
+<div>
+(21.0, 40.9)
+</div>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left:  2em;" indentlevel="1">
+No one major type
+</td>
+<td style="text-align:left;">
+<div>
+0.6
+</div>
+<div>
+( 0.0, 1.4)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+0.0
+</div>
+<div>
+( 0.0, 0.1)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+0.3
+</div>
+<div>
+( 0.0, 1.1)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+0.5
+</div>
+<div>
+( 0.0, 1.2)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+0.2
+</div>
+<div>
+( 0.0, 0.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+0.1
+</div>
+<div>
+( 0.0, 0.2)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+0.3
+</div>
+<div>
+( 0.0, 0.8)
+</div>
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+<div>
+1.9
+</div>
+<div>
+( 0.1, 3.7)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+0.8
+</div>
+<div>
+( 0.0, 1.7)
+</div>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left:  2em;" indentlevel="1">
+Other
+</td>
+<td style="text-align:left;">
+<div>
+0.0
+</div>
+<div>
+( 0.0, 0.1)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+0.6
+</div>
+<div>
+( 0.0, 1.3)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+0.5
+</div>
+<div>
+( 0.0, 1.3)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+0.6
+</div>
+<div>
+( 0.0, 1.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+0.5
+</div>
+<div>
+( 0.0, 1.2)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+1.0
+</div>
+<div>
+( 0.1, 1.9)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+0.4
+</div>
+<div>
+( 0.0, 1.0)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+0.3
+</div>
+<div>
+( 0.0, 0.8)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+0.6
+</div>
+<div>
+( 0.0, 1.6)
+</div>
+</td>
+<td style="text-align:center;">
+NA
+</td>
+</tr>
+<tr grouplength="4">
+<td colspan="11" style="border-bottom: 1px solid;">
+<strong>Size: 25,001 to 200,000 sqft</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left:  2em;" indentlevel="1">
+Brick, stone, or stucco
+</td>
+<td style="text-align:left;">
+<div>
+76.2
+</div>
+<div>
+(48.5, 100.0)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+75.2
+</div>
+<div>
+(53.9, 96.4)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+67.1
+</div>
+<div>
+(56.1, 78.1)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+53.9
+</div>
+<div>
+(44.6, 63.1)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+44.4
+</div>
+<div>
+(35.5, 53.3)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+41.8
+</div>
+<div>
+(34.0, 49.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+46.6
+</div>
+<div>
+(39.1, 54.1)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+50.4
+</div>
+<div>
+(40.2, 60.5)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+48.4
+</div>
+<div>
+(34.9, 61.9)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+48.4
+</div>
+<div>
+(33.6, 63.2)
+</div>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left:  2em;" indentlevel="1">
+Pre-cast concrete panels
+</td>
+<td style="text-align:left;">
+<div>
+1.1
+</div>
+<div>
+( 0.0, 2.5)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+0.9
+</div>
+<div>
+( 0.0, 2.3)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+1.0
+</div>
+<div>
+( 0.0, 2.3)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+5.1
+</div>
+<div>
+( 1.3, 9.0)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+10.8
+</div>
+<div>
+( 6.4, 15.2)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+14.9
+</div>
+<div>
+( 6.1, 23.7)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+12.8
+</div>
+<div>
+( 8.3, 17.3)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+11.2
+</div>
+<div>
+( 5.2, 17.1)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+11.8
+</div>
+<div>
+( 6.9, 16.7)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+12.1
+</div>
+<div>
+( 5.6, 18.6)
+</div>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left:  2em;" indentlevel="1">
+Concrete block or poured concrete (above grade)
+</td>
+<td style="text-align:left;">
+<div>
+8.9
+</div>
+<div>
+( 0.3, 17.5)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+12.5
+</div>
+<div>
+( 4.5, 20.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+22.1
+</div>
+<div>
+(12.6, 31.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+28.0
+</div>
+<div>
+(19.7, 36.4)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+29.8
+</div>
+<div>
+(21.5, 38.2)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+29.7
+</div>
+<div>
+(24.5, 34.8)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+24.5
+</div>
+<div>
+(18.0, 31.1)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+22.7
+</div>
+<div>
+(14.0, 31.4)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+20.4
+</div>
+<div>
+( 9.2, 31.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+23.7
+</div>
+<div>
+(13.1, 34.4)
+</div>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left:  2em;" indentlevel="1">
+Other
+</td>
+<td style="text-align:left;">
+<div>
+13.8
+</div>
+<div>
+( 0.0, 43.3)
+</div>
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+<div>
+0.0
+</div>
+<div>
+( 0.0, 0.0)
+</div>
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+<div>
+0.0
+</div>
+<div>
+( 0.0, 0.1)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+0.2
+</div>
+<div>
+( 0.0, 0.7)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+1.1
+</div>
+<div>
+( 0.0, 2.7)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+2.6
+</div>
+<div>
+( 0.0, 7.5)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+0.4
+</div>
+<div>
+( 0.0, 1.2)
+</div>
+</td>
+</tr>
+<tr grouplength="4">
+<td colspan="11" style="border-bottom: 1px solid;">
+<strong>Size: 200,001 to over 1 mil. sqft</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left:  2em;" indentlevel="1">
+Brick, stone, or stucco
+</td>
+<td style="text-align:left;">
+<div>
+83.7
+</div>
+<div>
+(69.9, 97.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+69.6
+</div>
+<div>
+(55.6, 83.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+46.7
+</div>
+<div>
+(29.2, 64.2)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+51.4
+</div>
+<div>
+(31.1, 71.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+42.3
+</div>
+<div>
+(32.4, 52.1)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+38.2
+</div>
+<div>
+(25.0, 51.3)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+38.4
+</div>
+<div>
+(26.1, 50.7)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+40.8
+</div>
+<div>
+(23.0, 58.5)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+37.9
+</div>
+<div>
+(21.1, 54.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+41.2
+</div>
+<div>
+( 6.1, 76.3)
+</div>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left:  2em;" indentlevel="1">
+Pre-cast concrete panels
+</td>
+<td style="text-align:left;">
+<div>
+2.2
+</div>
+<div>
+( 0.0, 5.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+6.2
+</div>
+<div>
+( 0.0, 13.0)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+5.0
+</div>
+<div>
+( 0.0, 12.2)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+8.6
+</div>
+<div>
+( 1.2, 16.1)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+17.7
+</div>
+<div>
+(11.8, 23.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+15.5
+</div>
+<div>
+( 9.4, 21.5)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+25.0
+</div>
+<div>
+(13.7, 36.3)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+35.8
+</div>
+<div>
+(21.1, 50.5)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+28.1
+</div>
+<div>
+(14.5, 41.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+13.9
+</div>
+<div>
+( 0.0, 29.2)
+</div>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left:  2em;" indentlevel="1">
+Concrete block or poured concrete (above grade)
+</td>
+<td style="text-align:left;">
+<div>
+9.1
+</div>
+<div>
+( 0.3, 18.0)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+21.1
+</div>
+<div>
+( 5.6, 36.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+45.0
+</div>
+<div>
+(26.9, 63.1)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+24.4
+</div>
+<div>
+(10.1, 38.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+31.9
+</div>
+<div>
+(23.1, 40.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+26.1
+</div>
+<div>
+(15.1, 37.1)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+22.3
+</div>
+<div>
+(11.2, 33.4)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+17.6
+</div>
+<div>
+( 7.6, 27.5)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+26.0
+</div>
+<div>
+( 8.0, 44.0)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+10.3
+</div>
+<div>
+( 1.0, 19.6)
+</div>
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left:  2em;" indentlevel="1">
+No one major type
+</td>
+<td style="text-align:left;">
+<div>
+5.0
+</div>
+<div>
+( 0.0, 16.1)
+</div>
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+NA
+</td>
+<td style="text-align:center;">
+<div>
+2.1
+</div>
+<div>
+( 0.0, 5.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+0.2
+</div>
+<div>
+( 0.0, 0.6)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+1.0
+</div>
+<div>
+( 0.0, 2.4)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+1.1
+</div>
+<div>
+( 0.0, 2.7)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+0.4
+</div>
+<div>
+( 0.0, 1.0)
+</div>
+</td>
+<td style="text-align:left;">
+<div>
+1.9
+</div>
+<div>
+( 0.0, 4.3)
+</div>
+</td>
+<td style="text-align:center;">
+<div>
+0.4
+</div>
+<div>
+( 0.0, 1.5)
+</div>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
