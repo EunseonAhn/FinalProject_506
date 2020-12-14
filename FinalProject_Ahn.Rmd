@@ -9,6 +9,8 @@ output:
     highlight: pygments
     includes:
       in_header: header.html
+    toc: true
+    toc_float: true
 ---
 
 ```{css, include = TRUE, echo = FALSE}
@@ -26,9 +28,9 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ## Introduction 
 <!-- Introduction: Approximately 2-3 paragraphs explaining what your question is, why it is interesting, and ending with a high level description of the analysis you did (not the results) -->
 
-Walking through University of Michigan's Ann Arbor campus (pre-COVID days), it's not difficult to observe the stark contrast between the architecture of Michigan's newer buildings like the Stephen M. Ross building (completed in 2009) lying across from the more traditional buildings that make up Michigan's famous Law Quad (completed in 1933). This sheer difference in style and basic structure of these two buildings demonstrates the underlying improvements and changes in labor, material, production, and new technology experienced by the the architecture and construction industry in the US over time. Whether these technological advancements have been driven by the need for efficiency, cost of labor/material, specific designs/purpose of buildings, durability, sustainability, or availability of different materials, this project seeks to investigate how the construction materials used for wall and roof of buildings across US have changed throughout the years. 
+Walking through the U of M campus, it's not difficult to observe the stark contrast between the architecture of Michigan's newer buildings like the Ross building (completed in 2009) lying across from the more traditional buildings making up Michigan's Law Quad (completed in 1933). This difference in style and structure of these two buildings demonstrates the underlying improvements/changes in labor, material, production, and new technology experienced by the construction industry. Whether these technological advancements have been driven by the need for efficiency, specific designs, durability, or availability of different materials, this project seeks to investigate how the construction materials used for wall and roof of buildings across US have changed throughout the years. 
 
-Additionally, the requirements of the building materials may be further specified by the size of the building being constructed. It is possible that while there have been advancements in construction material or methods that make use of specific materials, making some building materials more popular at certain time periods, it perhaps only applies to buildings that are of smaller scale. Consequently, in order to take the size of the buildings into consideration in looking at the usage of construction material through time, we'll consider the square footage of the building to address whether buildings of different sizes require (or have a preferential leaning towards) different building materials. To address these questions, we will consider point estimates and generate confidence intervals for these estimates using replicate weights provided in our data.
+Additionally, the requirements of the building materials may be further specified by the size of the building. It is possible that while there may have been advancements in construction material or methods involving specific materials, it's only applicable to buildings of certain size. Consequently, in order to take the building size into consideration in looking at the usage of construction material through time, we'll consider the square footage of the building to address whether buildings of different sizes require (or have a preferential leaning towards) different building materials. To address these questions, we will consider point estimates and generate confidence intervals for these estimates using replicate weights provided in our data.
 <br><br>
 <style>
 div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 10px;}
@@ -38,7 +40,6 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 10px;}
 </div>
 
 ## Data 
-
 ```{r data prep}
 # libraries: ------------------------------------------------------------------
 library(tidyverse)
@@ -90,6 +91,16 @@ codes = codebook %>% filter( `Variable\r\nname` %in% variables) %>%
     labels = lapply(temp, function(m){m[,2]})) %>%
   select(-temp)
 
+codes$labels[[2]] = replace(codes$labels[[2]], c(3, 4, 6),
+        c("Concrete block or poured concrete",
+          "Aluminum, asbestos, plastic, or wood",
+          "Window or vision glass")) 
+
+codes$labels[[3]] = replace(codes$labels[[3]], c(1, 3, 6),
+                            c("Built-up (tar, felts, or fiberglass/ballast)",
+                            "Wood shingles, shakes, or other wood",
+                            "Plastic, rubber, or synthetic sheeting"))
+
 ## apply labels
 decode_recs = function(x, varname, codes = codes){
   # Source: Dr. Henderson's Youtube lecture from 'Intro to Tidyverse'
@@ -133,11 +144,12 @@ cbec = cbec %>% mutate(size_group = recode(size_group,
 
 ```
 
-To address the above question, 2012 US Commercial Building Energy Consumption Survey ([CBECS](https://www.eia.gov/consumption/commercial/data/2012/index.php?view=microdata)) Data was analyzed.  
+To address the above question, 2012 US Commercial Building Energy Consumption Survey ([CBECS](https://www.eia.gov/consumption/commercial/data/2012/index.php?view=microdata)) Data was analyzed. The variables `PUBID`, `YRCON`, `WLCONS`, `RFCNS`, `SQFTC`, and `FINALWT` were used for our analysis.  
 <br>
 
-#### Variables used:   
-
+<details>
+  <summary>Expand for detailed variable labels & values.</summary>
+  
 |  Variable  | Label | Values / Format Codes | 
 | ------------ | -------------------------|---------------------------------- |
 |`PUBID`| Building identifier | 00001 - 06720 |
@@ -148,10 +160,12 @@ To address the above question, 2012 US Commercial Building Energy Consumption Su
 |`FINALWT`| Final full sample building weight | Numeric|
 |`FINALWT..`| Final replicate weights | Numeric|
 
+</details>
+
+
 ## Methods
 
 <!-- Data / Methods: Describe your data source and the methods you used. There should be enough detail here that I could repeat your analysis. Focus on what you did, not how you did it. Include a sentence with a link to a GitHub repository containing your code. -->
-
 ```{r analysis, class.source = 'fold-hide'}
 gen_CI = function(df, varA, varB){
   # Construct point estimates and confidence intervals
@@ -210,7 +224,7 @@ roof_year_size = gen_CI(cbec, c("year", "size_group"), "roof") %>%
 
 ```
 
-To investigate the relationship between the construction materials (roof and wall) and the construction year (to see if certain building materials were preferred in different years) and whether certain materials are preferred for smaller vs larger buildings, descriptive statistics, specifically the mean percentage, was calculated to estimate the proportion of different wall and roof construction material by construction year and square footage. The square footage categories provided by the dataset was further collapsed into 3 size categories for better chance of meaning distinction betweeen groups:
+To investigate the relationship between the construction materials and the construction year and whether certain materials are preferred for smaller vs. larger buildings, descriptive statistics, specifically the mean percentage, was calculated to estimate the proportion of different wall and roof construction material by construction year and square footage. The square footage categories provided by the dataset was further collapsed into 3 levels for better chance of meaningful distinction between the groups:
 
 []()  | 
 ------|------
@@ -227,9 +241,7 @@ The code containing this analysis is available through this [github repository](
 
 <!-- Results: What did you find? This should be the largest section and is where all of your tabular/graphical elements go. -->
 
-### Wall {.tabset .tabset-fade .tabset-pills}
-
-#### Plot {.active .tabset .tabset-fade .tabset-pills}
+### Wall
 
 ```{r wall, fig.cap = cap1a, fig.height = 10, fig.width = 10}
 
@@ -255,13 +267,7 @@ wall_year_size %>%
   ylim(c(0, 90))  
 ```
 
-#### Table
-
-table
-
-### Roof  {.tabset .tabset-fade .tabset-pills}
-
-#### Plot {.tabset .tabset-fade .tabset-pills}
+### Roof  
 
 ```{r roof, fig.cap = cap1b, fig.height = 10, fig.width = 10}
 cap1b = paste(
@@ -286,9 +292,32 @@ roof_year_size %>%
   ylim(c(0, 90))  
 ```
 
-#### Table
+## Conclusion
 
-```{r table, fig.cap = cap_tab1}
+<br>
+
+<!-- Conclusion / Discussion: What do your results allow us to conclude about the question you posed? What are the strengths and limitations of your analysis? -->
+#### **Usage of wall construction materials over time**
+
+Regardless of the construction year, [brick, stone, or stucco] is the most popular material for walls with [concrete], [aluminum] and [sheet metal panels] walls also being widely used. 
+
+Over the years, sheet metal panels have gained more popularity, with this pattern being most obvious in smaller buildings (1001 - 25,000 sqft.). Similarly, aluminum walls are more widely used in smaller buildings categories. Alternatively, pre-cast concrete panel walls seem to be more preferentially used in large buildings category (200,001 - 1 mil. sqft.) with fairly limited use in the smaller buildings.
+
+*** 
+
+#### **Usage of roof construction materials over time**
+
+From our analysis, [built-up (tar, felts, or fiberglass and a ballast)], [asphalt, fiberglass, or other shingles], [metal surfacing], and [rubber, or synthetic sheeting] are the more popular material for roof construction.
+
+From the plots, the relationship between construction years and the roof construction material is most noticeable for metal surfacing roofs, with an overall increase in its use over the years. On the other hand, there is a stronger preference for different roof materials based on the size of the building. For example, [metal surfacing] or [asphalt, fiberglass, or other shingles] roofs are more widely used on smaller buildings (1001 - 25,000 sqft.), whereas [rubber, or synthetic sheeting] or [built-up (tar, felts, or fiberglass and a ballast)] roofs are more widely used for large buildings (200,000 - over 1 mil. sqft.). For these roof materials, the percentage of mid-sized buildings (25,001 - 200,000 sqft.) that use this materials falls somewhere in the middle of the two building sizes.
+
+## Appendix {.tabset .tabset-fade .tabset-pills}
+
+Included are the table of values which are plotted in the result section. 
+
+### Wall 
+
+```{r table_wall, fig.cap = cap_tab1}
 cap_tab1 = paste(
  "**Table 1.** *Wall construction material used by buildings (%) in 2012. *",
  "Numbers in parantheses represent 95% confidence intervals."
@@ -302,6 +331,7 @@ t = wall_year_size %>%
 
 pivot_all = function (t){
   t1 = list()
+  
   for(i in 1: length(levels(t$year))) { 
 
     t1[[i]] = t %>%
@@ -339,62 +369,56 @@ joined %>%
 
 ```
 
-```{r remove, include = FALSE}
-t1_s1 = t %>%
-  filter(as.numeric(size_group) == 2) %>%
-  pivot_wider(
-    id_cols = c('year', 'wall'),
-    names_from = 'size_group',
-    names_prefix = '',
-    values_from = 'pretty',
-    values_fill = '--'
-  )
+### Roof 
 
-t1_s2 = t %>%
-  filter(as.numeric(size_group) == 3) %>%
-  pivot_wider(
-    id_cols = c('year', 'wall'),
-    names_from = 'size_group',
-    names_prefix = '',
-    values_from = 'pretty',
-    values_fill = '--'
-  )
+```{r table_roof, fig.cap = cap_tab2}
+cap_tab2 = paste(
+ "**Table 2.** *Roof construction material used by buildings (%) in 2012. *",
+ "Numbers in parantheses represent 95% confidence intervals."
+)
 
-t1_s3 = t %>%
-  filter(as.numeric(size_group) == 4) %>%
-  pivot_wider(
-    id_cols = c('year', 'wall'),
-    names_from = 'size_group',
-    names_prefix = '',
-    values_from = 'pretty',
-    values_fill = '--'
-  )
+t = roof_year_size %>%
+   mutate(
+    pretty = sprintf('<div>%4.1f</div> <div>(%4.1f, %4.1f)</div>', 
+                     p, lwr, upr)
+  ) 
 
-t1 = t1_s1 %>% 
-  left_join(t1_s2, by = c('year', 'wall')) %>%
-  left_join(t1_s3, by = c('year', 'wall'))
+pivot_all = function (t){
+  t1 = list()
+  for(i in 1: length(levels(t$year))) { 
 
+    t1[[i]] = t %>%
+      filter(as.numeric(year) == i) %>%
+      pivot_wider(
+        id_cols = c('roof', 'size_group'),
+        names_from = 'year',
+        names_prefix = '',
+        values_from = 'pretty',
+        values_fill = '--'
+      )
+  }
+  return (t1)
+}
 
-t1 %>%
-  arrange(year, wall) %>% ungroup() %>% select(-year) %>%
-  select(
-    `Wall Material `= wall,
-    `1001 to 25,000 sq. ft.`,
-    `25,001 to 200,000 sq. ft.`,
-    `200,001 to over 1 mil. sq. ft`) %>%
+t1 = pivot_all(t)
+joined = t1 %>%
+  reduce(left_join, by = c("roof", "size_group"))
+
+joined %>%
+  rename(` ` = roof) %>%
+  ungroup() %>%
+  select(-size_group) %>%
   knitr::kable(
     format = 'html', 
     escape = FALSE, 
-    align = 'llcccccc'
+    align = 'llcccccc',
+    cap = cap_tab2
   ) %>%
   kableExtra::kable_styling("striped", full_width = TRUE) %>%
-  kableExtra::pack_rows("Group 1", 1, 7) %>%
-  kableExtra::pack_rows("Group 2", 8, 14) %>%
-  kableExtra::pack_rows("Group 3", 15, 21) %>%
-  kableExtra::pack_rows("Group 4", 22, 28) %>%
-  kableExtra::add_header_above(header = c(' ' = 1, 'Building size' = 3)) 
+  kableExtra::pack_rows("Size: 1001 to 25,000 sqft", 1, 8) %>%
+  kableExtra::pack_rows("Size: 25,001 to 200,000 sqft", 9, 16) %>%
+  kableExtra::pack_rows("Size: 200,001 to over 1 mil. sqft", 17, 23) %>%
+  kableExtra::add_header_above(header = c('Roof Material' = 1, 'Construction Year' = 10)) 
+
 ```
 
-## Conclusion
-
-<!-- Conclusion / Discussion: What do your results allow us to conclude about the question you posed? What are the strengths and limitations of your analysis? -->

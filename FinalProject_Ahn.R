@@ -66,6 +66,17 @@ codes = codebook %>% filter( `Variable\r\nname` %in% variables) %>%
     labels = lapply(temp, function(m){m[,2]})) %>%
   select(-temp)
 
+codes$labels[[2]] = replace(codes$labels[[2]], c(3, 4, 6),
+                            c("Concrete block or poured concrete",
+                              "Aluminum, asbestos, plastic, or wood",
+                              "Window or vision glass")) 
+
+codes$labels[[3]] = replace(codes$labels[[3]], c(1, 3, 6),
+                            c("Built-up (tar, felts, or fiberglass/ballast)",
+                              "Wood shingles, shakes, or other wood",
+                              "Plastic, rubber, or synthetic sheeting"))
+
+
 ## apply labels
 decode_recs = function(x, varname, codes = codes){
   # Source: Dr. Henderson's Youtube lecture from 'Intro to Tidyverse'
