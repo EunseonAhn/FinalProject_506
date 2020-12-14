@@ -336,6 +336,12 @@ t = wall_year_size %>%
   ) 
 
 pivot_all = function (t){
+  # pivot data into wide format for every year category 
+  # INPUTS: 
+  #   t - table with years in long format 
+  # OUPTUT: t1 with each row containing point estimates for all categories of 
+  #   year  
+  
   t1 = list()
   
   for(i in 1: length(levels(t$year))) { 
@@ -390,6 +396,12 @@ t = roof_year_size %>%
   ) 
 
 pivot_all = function (t){
+  # pivot data into wide format for every year category 
+  # INPUTS: 
+  #   t - table with years in long format 
+  # OUPTUT: t1 with each row containing point estimates for all categories of 
+  #   year  
+  
   t1 = list()
   for(i in 1: length(levels(t$year))) { 
 

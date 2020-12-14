@@ -1,9 +1,9 @@
 ## STATS506 F20 Final Project
 ##
-## DESCRIPTION: Summarize # of TVs and most-used TV types by division and 
-##   urban/rural settings for recs dataset from eia.gov for years 2009 and 
-##   2015. Addiitional analysis of changes in these values from 2009 to 2015
-##   was performed.
+## DESCRIPTION: 
+##      Summarize the proportion of buildings using different wall and roof
+##      construction material across construction years and building size 
+##      (sqft). 
 ##
 ##   Any related plotting is done in FinalProject_Ahn.Rmd
 ## 
@@ -62,8 +62,8 @@ codes = codebook %>% filter( `Variable\r\nname` %in% variables) %>%
   mutate(
     temp = lapply(temp, str_split_fixed, pattern = " = ", n = 2)) %>%
   mutate(
-    levels = lapply(temp, function(m){m[,1]}),
-    labels = lapply(temp, function(m){m[,2]})) %>%
+    levels = lapply(temp, function(m){m[, 1]}),
+    labels = lapply(temp, function(m){m[, 2]})) %>%
   select(-temp)
 
 codes$labels[[2]] = replace(codes$labels[[2]], c(3, 4, 6),
@@ -94,9 +94,9 @@ decode_recs = function(x, varname, codes = codes){
 cbec = cbec %>%
   mutate(size = as.numeric(size),
          year = as.numeric(year)) %>%
-  mutate(size = decode_recs(size,'SQFTC',codes),
-         wall = decode_recs(wall,'WLCNS',codes),
-         roof = decode_recs(roof,'RFCNS',codes),
+  mutate(size = decode_recs(size,'SQFTC', codes),
+         wall = decode_recs(wall,'WLCNS', codes),
+         roof = decode_recs(roof,'RFCNS', codes),
          year = decode_recs(year,'YRCONC', codes),
          id = as.double(id))
 
@@ -121,17 +121,13 @@ cbec = cbec %>% mutate(size_group = recode(size_group,
 head(cbec)
 
 gen_CI = function(df, varA, varB){
-  # Construct point estimates and confidence intervals
-  
-  # generate pt. estimates confidence intervals for var A grouped by var B
-  #     by variable B
   # INPUTS: 
   #   df - the tibble or data frame with all available values
   #   varA - variable of interest
   #   varB - variable you want to group varA by
   
-  # OUPTUT: pt_CI - data frame containing variance, standard error, and lower and 
-  #         upper bounds of the 95% confidence interval
+  # OUPTUT: pt_CI - data frame containing variance, standard error, and lower 
+  #         and upper bounds of the 95% confidence interval
   
   pt_est = df %>% group_by_at(c(varA, varB)) %>%
     summarize(nTotal = sum(w)) %>%
@@ -175,41 +171,10 @@ roof_year_size = gen_CI(cbec, c("year", "size_group"), "roof") %>%
   mutate(across(all_of(c('p', 'lwr', 'upr')), 
                 .fns = function(x) 100 * x))
 
-# Construct point estimates ---------------------------------------------------
-## Wall construction material
-### Calculate mean proportion
-wall_by_yr = cbec %>% group_by(year, wall) %>%
-  summarize(nbuildings = sum(w), n()) %>% 
-  mutate(p_wall = nbuildings/sum(nbuildings)) %>% filter(wall == c("Brick, stone, or stucco"))
-
-### Calculate replicate  proportion
-wall_by_yr_repl = cbec %>% 
-  select(-w) %>%
-  left_join(long_weights, by = "id") %>%
-  group_by(year, rep, wall) %>%
-  summarize(nwalls = sum(rw)) %>% 
-  mutate(p_repl = nwalls/sum(nwalls))
-
-### Calculate variance of replicate proportions around the point estimate
-wall_by_yr_var = wall_by_yr_repl %>%
-  select(-nwalls) %>%
-  left_join(wall_by_yr, by = c("year", "wall")) %>%
-  select(-nbuildings) %>% 
-  group_by(year, wall) %>%
-  summarize(p_wall = mean(p_wall), v =  sum({(p_repl - p_wall)^2}))
-
-m = qnorm(.975)
-wall_by_yr_var = wall_by_yr_var %>% 
-  mutate(
-  se = sqrt(v), 
-  lwr = p_wall - m * se,
-  upr = p_wall + m * se) 
-
 # Plots and Tables -----------------------------------------------------------
 
 ## Plot for wall construction material by year/square footage
 
-## construct a plot
 wall_year_size %>%
   mutate(`Size Group` = size_group) %>%
   ggplot( aes(x = year, y = p, color = `Size Group`) ) +
