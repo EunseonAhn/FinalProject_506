@@ -342,7 +342,7 @@ body{ /* Normal */
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
 <!-- Introduction: Approximately 2-3 paragraphs explaining what your question is, why it is interesting, and ending with a high level description of the analysis you did (not the results) -->
-<p>Walking through the U of M campus, it's not difficult to observe the stark contrast between the architecture of Michigan's newer buildings like the Ross building (completed in 2009) lying across from the more traditional buildings making up Michigan's Law Quad (completed in 1933). This difference in style and structure of these two buildings demonstrates the underlying improvements/changes in labor, material, production, and new technology experienced by the construction industry. Whether these technological advancements have been driven by the need for efficiency, specific designs, durability, or availability of different materials, this project seeks to investigate how the construction materials used for wall and roof of buildings across US have changed throughout the years.</p>
+<p>Walking through the U of M campus, it's not difficult to observe the stark contrast between the architecture of Michigan's newer buildings like the Ross building (completed in 2009) lying across from the more traditional buildings making up Michigan's Law Quad (completed in 1933). This difference in style and structure of these two buildings demonstrates the underlying improvements/changes in labor, material, production, and new technology experienced by the construction industry. This project seeks to investigate how the construction materials used for wall and roof of buildings across US have changed throughout the years.</p>
 Additionally, the requirements of the building materials may be further specified by the size of the building. It is possible that while there may have been advancements in construction material or methods involving specific materials, it's only applicable to buildings of certain size. Consequently, in order to take the building size into consideration in looking at the usage of construction material through time, we'll consider the square footage of the building to address whether buildings of different sizes require (or have a preferential leaning towards) different building materials. To address these questions, we will consider point estimates and generate confidence intervals for these estimates using replicate weights provided in our data. <br><br>
 <style>
 div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 10px;}
@@ -568,7 +568,7 @@ roof_year =<span class="st"> </span><span class="kw">gen_CI</span>(cbec, <span c
 roof_year_size =<span class="st"> </span><span class="kw">gen_CI</span>(cbec, <span class="kw">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;size_group&quot;</span>), <span class="st">&quot;roof&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">all_of</span>(<span class="kw">c</span>(<span class="st">'p'</span>, <span class="st">'lwr'</span>, <span class="st">'upr'</span>)), 
                 <span class="dt">.fns =</span> <span class="cf">function</span>(x) <span class="dv">100</span> <span class="op">*</span><span class="st"> </span>x))</code></pre></div>
-<p>To investigate the relationship between the construction materials and the construction year and whether certain materials are preferred for smaller vs. larger buildings, descriptive statistics, specifically the mean percentage, was calculated to estimate the proportion of different wall and roof construction material by construction year and square footage. The square footage categories provided by the dataset was further collapsed into 3 levels for better chance of meaningful distinction between the groups:</p>
+<p>To investigate the relationship between the construction materials and the construction year and whether certain materials are preferred for smaller vs. larger buildings, the proportion of buildings built with different wall and roof construction materials was calculated for each construction year and square footage category. The square footage categories provided by the CBEC dataset was further collapsed into 3 levels for a better chance finding meaningful distinction between the groups:</p>
 <table>
 <thead>
 <tr class="header">
@@ -624,6 +624,12 @@ wall_year_size <span class="op">%&gt;%</span>
 <strong>Figure 1a.</strong> <em>Percentage of Buildings with Wall Material By Year &amp; Building Size</em>
 </p>
 </div>
+<hr />
+<div id="usage-of-wall-construction-materials-over-time" class="section level4">
+<h4><strong>Usage of wall construction materials over time</strong></h4>
+<p>Regardless of the construction year, [brick, stone, or stucco] is the most popular material for walls with [concrete], [aluminum] and [sheet metal panels] walls also being widely used.</p>
+<p>Over the years, sheet metal panels have gained more popularity, with this pattern being most obvious in smaller buildings (1001 - 25,000 sqft.). Similarly, aluminum walls are more widely used in smaller buildings categories. Alternatively, pre-cast concrete panel walls seem to be more preferentially used in large buildings category (200,001 - 1 mil. sqft.) with fairly limited use in the smaller buildings.</p>
+</div>
 </div>
 <div id="roof" class="section level3">
 <h3>Roof</h3>
@@ -653,23 +659,19 @@ roof_year_size <span class="op">%&gt;%</span>
 <strong>Figure 2a.</strong> <em>Percentage of Buildings with Roof Material By Year &amp; Building Size</em>
 </p>
 </div>
+<hr />
+<div id="usage-of-roof-construction-materials-over-time" class="section level4">
+<h4><strong>Usage of roof construction materials over time</strong></h4>
+<p>From our analysis, [built-up (tar, felts, or fiberglass and a ballast)], [asphalt, fiberglass, or other shingles], [metal surfacing], and [rubber, or synthetic sheeting] are the more popular material for roof construction.</p>
+<p>From the plots, the relationship between construction years and the roof construction material is most noticeable for metal surfacing roofs, with an overall increase in its use over the years. On the other hand, there is a stronger preference for different roof materials based on the size of the building. For example, [metal surfacing] or [asphalt, fiberglass, or other shingles] roofs are more widely used on smaller buildings (1001 - 25,000 sqft.), whereas [plastic, rubber, or synthetic sheeting] or [built-up (tar, felts, or fiberglass and a ballast)] roofs are more widely used for large buildings (200,000 - over 1 mil. sqft.). For these roof materials, the percentage of mid-sized buildings (25,001 - 200,000 sqft.) that use this materials falls somewhere in the middle of the two building sizes.</p>
+</div>
 </div>
 </div>
 <div id="conclusion" class="section level2">
 <h2>Conclusion</h2>
-<p><br></p>
 <!-- Conclusion / Discussion: What do your results allow us to conclude about the question you posed? What are the strengths and limitations of your analysis? -->
-<div id="usage-of-wall-construction-materials-over-time" class="section level4">
-<h4><strong>Usage of wall construction materials over time</strong></h4>
-<p>Regardless of the construction year, [brick, stone, or stucco] is the most popular material for walls with concrete, aluminum and sheet metal panels walls also being widely used.</p>
-<p>Over the years, sheet metal panels have gained more popularity, with this pattern being most obvious in smaller buildings (1001 - 25,000 sqft.). Similarly, aluminum walls are more widely used in smaller buildings categories. Alternatively, pre-cast concrete panel walls seem to be more preferentially used in large buildings category (200,001 - 1 mil. sqft.) with fairly limited use in the smaller buildings.</p>
-<hr />
-</div>
-<div id="usage-of-roof-construction-materials-over-time" class="section level4">
-<h4><strong>Usage of roof construction materials over time</strong></h4>
-<p>From our analysis, [built-up (tar, felts, or fiberglass and a ballast)], [asphalt, fiberglass, or other shingles], [metal surfacing], and [rubber, or synthetic sheeting] are the more popular material for roof construction.</p>
-<p>From the plots, the relationship between construction years and the roof construction material is most noticeable for metal surfacing roofs, with an overall increase in its use over the years. On the other hand, there is a stronger preference for different roof materials based on the size of the building. For example, [metal surfacing] or [asphalt, fiberglass, or other shingles] roofs are more widely used on smaller buildings (1001 - 25,000 sqft.), whereas [rubber, or synthetic sheeting] or [built-up (tar, felts, or fiberglass and a ballast)] roofs are more widely used for large buildings (200,000 - over 1 mil. sqft.). For these roof materials, the percentage of mid-sized buildings (25,001 - 200,000 sqft.) that use this materials falls somewhere in the middle of the two building sizes.</p>
-</div>
+<p>From the analysis, we find that there is a change in frequency of different wall and roof materials used throughout the years. Furthermore, our data reveals a preferential use of different roof and wall materials for buildings based on their size.</p>
+<p>One of the limitations of this analysis is that it does not take into consideration the number of floors of the building. Even though the square footage of the buildings were accounted for, skyscrapers are bound to have different construction and material constraints than a large single-floor building of the same square footage. Perhaps some sort of multiclass classification using logistics regression using all the variables like the construction year, square footage, number of floors, and other possible variables of interest may be better suited for studying what kind of buildings utilize specific building materials.</p>
 </div>
 <div id="appendix" class="section level2 tabset tabset-fade tabset-pills">
 <h2>Appendix</h2>
