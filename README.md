@@ -1,4 +1,4 @@
-# STATS 506 Final Project
+# [STATS 506 Final Project](https://github.com/EunseonAhn/FinalProject_506)
 
 Using 2012 US Commercial Building Energy Consumption Survey Data ([CBECS](https://www.eia.gov/consumption/commercial/data/2012/index.php?view=microdata)), this project tries to address how has the frequency of the types of wall and roof construction material changed over the years and whether the use of certain construction materials differ by the size of the building.
 
